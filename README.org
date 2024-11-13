@@ -84,23 +84,74 @@ When in doubt, use the [[https://wsldl-pg.github.io/ArchW-docs/][ArchWSL documen
 For me, the simplest procedure was to
 
 1. Download the latest =Arch.zip= file from the [[https://github.com/yuk7/ArchWSL/releases/latest][release page]]
+
 2. Extract it to a folder where your user has unrestricted read and write permissions, so ideally stay away from =Program Files=, etc.
+
 3. Run the included =Arch.exe=
-4. Change the root password src_sh{passwd}
-5. Add the =wheel= group to the allowed =sudo= users src_sh{echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel}
-6. Add a new user and add it to the =wheel= group src_sh{useradd -m -G wheel -s /bin/bash <username>}
-7. Change the new user's password src_sh{passwd <username>}
-8. Exit the WSL environment src_sh{exit}
-9. Set the new user as the default one src_powershell{Arch.exe config --default-user <username>}
-10. Rebooting or restarting =LxssManager= with src_powershell{net stop lxssmanager} and src_powershell{net start lxssmanager}
-11. After that reenter WSL with src_powershell{Arch.exe}
+
+4. Change the root password
+
+   #+begin_src sh
+passwd
+   #+end_src
+
+5. Add the =wheel= group to the allowed =sudo= users
+
+   #+begin_src sh
+echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
+   #+end_src
+
+6. Add a new user and add it to the =wheel= group
+
+   #+begin_src sh
+useradd -m -G wheel -s /bin/bash <username>
+   #+end_src
+
+7. Change the new user's password
+
+   #+begin_src sh
+passwd <username>
+   #+end_src
+
+8. Exit the WSL environment
+
+   #+begin_src sh
+exit
+   #+end_src
+
+9. Set the new user as the default one
+
+   #+begin_src powershell
+Arch.exe config --default-user <username>
+   #+end_src
+
+10. Rebooting or restarting =LxssManager= with
+
+    #+begin_src powershell
+net stop lxssmanager
+#+end_src
+
+    and
+
+    #+begin_src powershell
+net start lxssmanager
+#+end_src
+
+11. After that reenter WSL with
+    #+begin_src powershell
+Arch.exe
+#+end_src
+
 12. Setup the =pacman= keyring
+
     #+begin_src sh
 sudo pacman-key --init
 sudo pacman-key --populate
 sudo pacman -Sy archlinux-keyring
     #+end_src
+
 13. Update the base system
+
     #+begin_src sh
 sudo pacman -Su
     #+end_src
@@ -136,21 +187,27 @@ curl https://archlinux.org
 To make WSL proxy-aware, I needed to
 
 1. Populate my =~/.bashrc= with
+
    #+begin_src bash
 export http_proxy=http://<hostname>:<port>
 export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
    #+end_src
+
 2. Source it with
+
    #+begin_src sh
 source ~/.bashrc
    #+end_src
+
 3. Allow =sudo= to pass these environment variables through by populating =/etc/sudoers.d/proxy= with
+
    #+begin_src txt
 Defaults env_keep += "http_proxy https_proxy ftp_proxy"
    #+end_src
 
 Rerunning the [[curl_test][=curl= command]] should now produce a response and =pacman= get updated and upgraded
+
 #+begin_src sh
 sudo pacman -Syyuu
 #+end_src
