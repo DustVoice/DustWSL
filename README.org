@@ -8,10 +8,13 @@ It is mainly intended as a set of personal mental crutches, so the following dis
 
 #+begin_quote
 [!CAUTION]
-Your mileage may vary.
-Not for the faint of heart.
-Be wary of utter steaming hot garbage.
-Proceed with caution and at your own risk.
+Your mileage may vary!
+
+Not for the faint of heart!
+
+Be wary of utter steaming hot garbage!
+
+Proceed with caution and at your own risk!
 #+end_quote
 
 * Prerequisites
@@ -21,17 +24,17 @@ Before we can get started, we need to do a bit of configuration outside and insi
 ** Enable the Windows Feature
 
 #+begin_quote
-[!NOTE]
+[!IMPORTANT]
 It seems as if you don't longer need to manually enable the Windows Feature manually/yourself, as [[https://devblogs.microsoft.com/commandline/install-wsl-with-a-single-command-now-available-in-windows-10-version-2004-and-higher/?commentid=5587#comment-5587][this comment]] suggests.
 
-I'll still leave the following info intact because we all know what beautiful, reliable and stable pieces of software Microsoft Windows and the Microsoft Store are ... *[sarcasm off]*.
+I'll still leave the following info intact, because we all know what beautiful, reliable and stable pieces of software /Microsoft Windows/ and the /Microsoft Store/ are _{sarcasm off} ...
 #+end_quote
 
-First off, you'll want to enable the =Windows Subsystem for Linux= Windows feature.
-You can just open your Windows Search and search for =Turn Windows features on or off=, or dig your way through the Control Panel.
+You might want to enable the =Windows Subsystem for Linux= Windows feature.
+You can either try opening your /Windows Search/ and searching for =Turn Windows features on or off=, or you can dig your way through the /Control Panel/.
 
 #+begin_quote
-[!IMPORTANT]
+[!TIP]
 For [[https://github.com/microsoft/wslg][WSLg]] to work properly, you need to make sure you're running the Windows 11, or the minimum required version of Windows 10 /(Version 2004 or higher / Build 19041 or higher)/.
 #+end_quote
 
@@ -48,19 +51,22 @@ When in doubt, use the [[https://learn.microsoft.com/en-us/windows/wsl/install][
 
 To install WSL from a =cmd= or =PowerShell= /with elevated privileges/ run ~wsl --install -d Ubuntu~, or if you've already installed WSL in the past, /also from an elevated prompt/, run ~wsl --update~.
 
-*** Just Works^{TM} ... ?
+*** Just Works^{TM}?
 
 #+begin_quote
 [!IMPORTANT]
-This should only be neccessary if you're Windows is locked down, the Microsoft Store is disabled, etc.
+This should only be neccessary if your Windows is locked down, the Microsoft Store is disabled, or similar.
 #+end_quote
 
-Well it turns out, if you're in a more restricted corporate setting, the Windows environment is somewhat ... botched.
+As it turns out, if you're in a pretty restricting corporate setting, the Windows environment is somewhat ... botched.
 The only way I was able to install WSL successfully is by using the manual installation method.
 
 This includes
 1. Downloading the [[https://github.com/microsoft/WSL/releases][latest WSL release]] (the =.msixbundle=)
-2. Installing it by running ~PS> Add-AppxPackage Microsoft.WSL_<version>_<arch>.msixbundle~
+2. Installing it by running
+   #+begin_src powershell
+   Add-AppxPackage Microsoft.WSL_<version>_<arch>.msixbundle
+   #+end_src
 3. Proceeding with the [[*Installing ArchWSL][Installing ArchWSL]] step.
 
 #+begin_quote
@@ -78,59 +84,47 @@ When in doubt, use the [[https://wsldl-pg.github.io/ArchW-docs/][ArchWSL documen
 For me, the simplest procedure was to
 
 1. Download the latest =Arch.zip= file from the [[https://github.com/yuk7/ArchWSL/releases/latest][release page]]
-   fw
 2. Extract it to a folder where your user has unrestricted read and write permissions, so ideally stay away from =Program Files=, etc.
-
 3. Run the included =Arch.exe=
-
 4. Change the root password
    #+begin_src sh
 passwd
    #+end_src
-
 5. Add the =wheel= group to the allowed =sudo= users
    #+begin_src sh
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
    #+end_src
-
 6. Add a new user and add it to the =wheel= group
    #+begin_src sh
 useradd -m -G wheel -s /bin/bash <username>
    #+end_src
-
 7. Change the new user's password
    #+begin_src sh
 passwd <username>
    #+end_src
-
 8. Exit the WSL environment
    #+begin_src sh
 exit
    #+end_src
-
 9. Set the new user as the default one
    #+begin_src powershell
 Arch.exe config --default-user <username>
    #+end_src
-
 10. Rebooting or restarting =LxssManager= with
     #+begin_src powershell
 net stop lxssmanager
 net start lxssmanager
     #+end_src
-
 11. After that reenter WSL with
     #+begin_src powershell
 Arch.exe
     #+end_src
-
 12. Setup the =pacman= keyring
     #+begin_src sh
 sudo pacman-key --init
 sudo pacman-key --populate
 sudo pacman -Sy archlinux-keyring
     #+end_src
-
 13. Update the base system
     #+begin_src sh
 sudo pacman -Su
@@ -144,14 +138,13 @@ You can update your mirrorlist with your nearest mirrors.
 #+begin_src sh
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 #+end_src
-
-2. Generate a mirrorlist with the 5 best mirrors and save it to =/etc/pacman.d/mirrorlist=
+1. Generate a mirrorlist with the 5 best mirrors and save it to =/etc/pacman.d/mirrorlist=
 #+begin_src sh
 curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on"  | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist
 #+end_src
 #+end_quote
 
-** Just Works^{TM} v2
+*** Just Works^{TM} v2
 
 #+begin_quote
 [!IMPORTANT]
@@ -165,7 +158,7 @@ This can be confirmed by running
 curl https://archlinux.org
 #+end_src
 
-To make WSL proxy aware, I needed to
+To make WSL proxy-aware, I needed to
 
 1. Populate my =~/.bashrc= with
 #+begin_src bash
@@ -173,12 +166,10 @@ export http_proxy=http://<hostname>:<port>
 export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
 #+end_src
-
 2. Source it with
 #+begin_src sh
 source ~/.bashrc
 #+end_src
-
 3. Allow =sudo= to pass these environment variables through by populating =/etc/sudoers.d/proxy= with
    #+begin_src
 Defaults env_keep += "http_proxy https_proxy ftp_proxy"
