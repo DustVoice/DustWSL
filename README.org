@@ -21,6 +21,8 @@ Proceed with caution and at your own risk!
 
 Before we can get started, we need to do a bit of configuration outside and inside the WSL environment to enable the rest of the guide
 
+We first have to setup [WSL](wsl/README.md) and then [ArchWSL](archwsl/README.md)
+
 ** Enable the Windows Feature
 
 #+begin_quote
