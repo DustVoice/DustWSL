@@ -64,9 +64,9 @@ The only way I was able to install WSL successfully is by using the manual insta
 This includes
 1. Downloading the [[https://github.com/microsoft/WSL/releases][latest WSL release]] (the =.msixbundle=)
 2. Installing it by running
-   #+begin_src powershell
-   Add-AppxPackage Microsoft.WSL_<version>_<arch>.msixbundle
-   #+end_src
+#+begin_src powershell
+Add-AppxPackage Microsoft.WSL_<version>_<arch>.msixbundle
+#+end_src
 3. Proceeding with the [[*Installing ArchWSL][Installing ArchWSL]] step.
 
 #+begin_quote
@@ -87,48 +87,48 @@ For me, the simplest procedure was to
 2. Extract it to a folder where your user has unrestricted read and write permissions, so ideally stay away from =Program Files=, etc.
 3. Run the included =Arch.exe=
 4. Change the root password
-   #+begin_src sh
+#+begin_src sh
 passwd
-   #+end_src
+#+end_src
 5. Add the =wheel= group to the allowed =sudo= users
-   #+begin_src sh
+#+begin_src sh
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
-   #+end_src
+#+end_src
 6. Add a new user and add it to the =wheel= group
-   #+begin_src sh
+#+begin_src sh
 useradd -m -G wheel -s /bin/bash <username>
-   #+end_src
+#+end_src
 7. Change the new user's password
-   #+begin_src sh
+#+begin_src sh
 passwd <username>
-   #+end_src
+#+end_src
 8. Exit the WSL environment
-   #+begin_src sh
+#+begin_src sh
 exit
-   #+end_src
+#+end_src
 9. Set the new user as the default one
-   #+begin_src powershell
+#+begin_src powershell
 Arch.exe config --default-user <username>
-   #+end_src
+#+end_src
 10. Rebooting or restarting =LxssManager= with
-    #+begin_src powershell
+#+begin_src powershell
 net stop lxssmanager
 net start lxssmanager
-    #+end_src
+#+end_src
 11. After that reenter WSL with
-    #+begin_src powershell
+#+begin_src powershell
 Arch.exe
-    #+end_src
+#+end_src
 12. Setup the =pacman= keyring
-    #+begin_src sh
+#+begin_src sh
 sudo pacman-key --init
 sudo pacman-key --populate
 sudo pacman -Sy archlinux-keyring
-    #+end_src
+#+end_src
 13. Update the base system
-    #+begin_src sh
+#+begin_src sh
 sudo pacman -Su
-    #+end_src
+#+end_src
 
 #+begin_quote
 [!TIP]
@@ -138,7 +138,7 @@ You can update your mirrorlist with your nearest mirrors.
 #+begin_src sh
 sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
 #+end_src
-1. Generate a mirrorlist with the 5 best mirrors and save it to =/etc/pacman.d/mirrorlist=
+2. Generate a mirrorlist with the 5 best mirrors and save it to =/etc/pacman.d/mirrorlist=
 #+begin_src sh
 curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on"  | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 - | sudo tee /etc/pacman.d/mirrorlist
 #+end_src
@@ -171,9 +171,9 @@ export ftp_proxy=$http_proxy
 source ~/.bashrc
 #+end_src
 3. Allow =sudo= to pass these environment variables through by populating =/etc/sudoers.d/proxy= with
-   #+begin_src
+#+begin_src txt
 Defaults env_keep += "http_proxy https_proxy ftp_proxy"
-   #+end_src
+#+end_src
 
 Rerunning the [[curl_test][=curl= command]] should now produce a response and =pacman= get updated and upgraded
 #+begin_src sh
