@@ -1,0 +1,6 @@
+[book]
+authors = ["DustVoice"]
+language = "en"
+multilingual = false
+src = "src"
+title = "DustWSL - DustVoice's WSL from scratch"
