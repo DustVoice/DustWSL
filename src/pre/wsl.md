@@ -15,7 +15,7 @@ we won't bother about that particula part of Microsoft's official documentation.
 >
 > I'll still leave the following info intact, because we all know what
 > beautiful, reliable and stable pieces of software _Microsoft Windows_
-> and the _Microsoft Store_ are... <sub>`[cpp] delete sarcasm;`</sub>
+> and the _Microsoft Store_ are... <sub>`delete sarcasm;`</sub>
 
 You might want to enable the `Windows Subsystem for Linux` Windows feature.
 You can either try opening your _Windows Search_ and searching for `Turn Windows features on or off`,
@@ -70,7 +70,12 @@ This includes
 1.  Downloading the [latest WSL
     release](https://github.com/microsoft/WSL/releases) (the
     `.msixbundle`)
-2.  Installing it by running `[powershell] Add-AppxPackage Microsoft.WSL_{version}_{arch}.msixbundle`
+2.  Installing it by running
+
+    ```powershell
+    Add-AppxPackage Microsoft.WSL_{version}_{arch}.msixbundle
+    ```
+
 3.  Proceeding with the [Installing ArchWSL](./archwsl.md) step.
 
 > [!NOTE]
