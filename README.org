@@ -2,7 +2,7 @@
 #+author: DustVoice
 #+email: info@dustvoice.de
 
-This document is an attempt at providing a guide for my [[https://learn.microsoft.com/en-us/windows/wsl/install][WSL 2]] setup based on [["https://archlinux.org"][Arch Linux]], or rather [[https://github.com/yuk7/ArchWSL][ArchWSL]].
+This document is an attempt at providing a guide for my [[https://learn.microsoft.com/en-us/windows/wsl/install][WSL 2]] setup based on [[https://archlinux.org][Arch Linux]], or rather [[https://github.com/yuk7/ArchWSL][ArchWSL]].
 
 It is mainly intended as a set of personal mental crutches, so the following disclaimer applies
 
@@ -192,7 +192,7 @@ To make WSL proxy-aware, I needed to
 export http_proxy=http://<hostname>:<port>
 export https_proxy=$http_proxy
 export ftp_proxy=$http_proxy
-   #+end_src
+#+end_src
 
 2. Source it with
 
