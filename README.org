@@ -95,9 +95,9 @@ passwd
 echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
 #+end_src
 6. Add a new user and add it to the =wheel= group
-#+begin_src sh
-useradd -m -G wheel -s /bin/bash <username>
-#+end_src
+   #+begin_src sh
+   useradd -m -G wheel -s /bin/bash <username>
+   #+end_src
 7. Change the new user's password
 #+begin_src sh
 passwd <username>
