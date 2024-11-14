@@ -3,12 +3,13 @@
 In this part, we're installing the distro itself.
 
 > [!NOTE]
-> When in doubt, use the [ArchWSL documentation](https://wsldl-pg.github.io/ArchW-docs/).
+> When in doubt,
+> use the [ArchWSL documentation](https://wsldl-pg.github.io/ArchW-docs/).
 
 For me, the simplest procedure was to
 
-1.  Download the latest `Arch.zip` file from the [release
-    page](https://github.com/yuk7/ArchWSL/releases/latest)
+1.  Download the latest `Arch.zip` file
+    from the [release page](https://github.com/yuk7/ArchWSL/releases/latest)
 2.  Extract it to a folder where your user has unrestricted read and
     write permissions, so ideally stay away from `Program Files`, etc.
 3.  Run the included `Arch.exe`
@@ -24,16 +25,22 @@ For me, the simplest procedure was to
     echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
     ```
 
-6.  Add a new user and add it to the `wheel` group
+6.  Choose a username for your new user
 
     ```bash
-    useradd -m -G wheel -s /bin/bash <username>
+    export username={username}
+    ```
+
+    and add this new user to the `wheel` group
+
+    ```bash
+    useradd -m -G wheel -s /bin/bash $username
     ```
 
 7.  Change the new user's password
 
     ```bash
-    passwd <username>
+    passwd $username
     ```
 
 8.  Exit the WSL environment
@@ -44,25 +51,20 @@ For me, the simplest procedure was to
 
 9.  Set the new user as the default one
 
-    ```powerbash
-    Arch.exe config --default-user <username>
+    ```powershell
+    Arch.exe config --default-user {username}
     ```
 
 10. Reboot the PC or alternatively restart `LxssManager` with
 
-    ```powerbash
+    ```powershell
     net stop lxssmanager
-    ```
-
-    and
-
-    ```powerbash
     net start lxssmanager
     ```
 
 11. After that reenter WSL with
 
-    ```powerbash
+    ```powershell
     Arch.exe
     ```
 
@@ -83,21 +85,31 @@ For me, the simplest procedure was to
 > [!TIP]
 > You can update your mirrorlist with your nearest mirrors.
 >
-> 1.  It is best practice to backup your original mirrorlist.
+> 1. It is best practice to backup your original mirrorlist.
 >
->     ```bash
->     sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.old
->     ```
+>    ```bash
+>    sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+>    ```
 >
-> 1.  Generate a mirrorlist with the 5 best mirrors and save it to
->     `/etc/pacman.d/mirrorlist`
+> 2. Generate a mirrorlist and save it to     `/etc/pacman.d/mirrorlist`
 >
->     ```bash
->     curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
->     | sed -e 's/^#Server/Server/' -e '/^#/d' \
->     | rankmirrors -n 5 - \
->     | sudo tee /etc/pacman.d/mirrorlist
->     ```
+>    ```bash
+>    curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+>    | sudo tee /etc/pacman.d/mirrorlist
+>    ```
+>
+> 3. Uncomment desired lines in `/etc/pacman.d/mirrorlist` and move them to the top
+>
+> Alternatively you can automatically pick the 5 best mirrors and save them,
+> although you need the `pacman-contrib` package installed for the `rankmirrors` command.
+>
+> ```bash
+> sudo pacman -Syu pacman-contrib
+> curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+> | sed -e 's/^#Server/Server/' -e '/^#/d' \
+> | rankmirrors -n 5 - \
+> | sudo tee /etc/pacman.d/mirrorlist
+> ```
 
 ### Just Works<sup>TM</sup> ?
 
@@ -116,26 +128,26 @@ curl https://archlinux.org
 
 To make WSL proxy-aware, I needed to
 
-1.  Populate my `~/.bashrc` with
+1. Populate my `~/.bashrc` with
 
-    ```bash
-    export http_proxy=http://<hostname>:<port>
-    export https_proxy=$http_proxy
-    export ftp_proxy=$http_proxy
-    ```
+   ```bash
+   export http_proxy=http://<hostname>:<port>
+   export https_proxy=$http_proxy
+   export ftp_proxy=$http_proxy
+   ```
 
-2.  Source it with
+2. Source it with
 
-    ```bash
-    source ~/.bashrc
-    ```
+   ```bash
+   source ~/.bashrc
+   ```
 
-3.  Allow `sudo` to pass these environment variables through by
-    populating `/etc/sudoers.d/proxy` with
+3. Allow `sudo` to pass these environment variables through by
+   populating `/etc/sudoers.d/proxy` with
 
-    ```txt
-    Defaults env_keep += "http_proxy https_proxy ftp_proxy"
-    ```
+   ```txt
+   Defaults env_keep += "http_proxy https_proxy ftp_proxy"
+   ```
 
 Rerunning the `curl`-command should now produce a response
 and `pacman` should update and upgrade just fine:
