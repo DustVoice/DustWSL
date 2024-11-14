@@ -10,4 +10,3 @@ This is a [mdbook](https://rust-lang.github.io/mdBook/).
 The following third-party plugins are used and therefore have to be installed
 
 - [mdbook-alerts](https://github.com/lambdalisue/rs-mdbook-alerts): `cargo install mdbook alerts`
-- [mdbook-inline-highlighting](https://github.com/lambdalisue/rs-mdbook-alerts): `cargo install mdbook-inline-highlighting`
