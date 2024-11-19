@@ -18,3 +18,12 @@
     - [Where is it?](./home/smartcard/gpg/missing.md)
     - [Register](./home/smartcard/gpg/register.md)
     - [SSH](./home/smartcard/gpg/ssh.md)
+- [Doom Emacs](./home/doom.md)
+- [Scripts](./home/scripts.md)
+
+# Optional
+- [Programming Languages](./opt/langs/README.md)
+  - [Rust](./opt/langs/rust.md)
+  - [Julia](./opt/langs/julia.md)
+  - [Babashka](./opt/langs/bb.md)
+  - [Clojure](./opt/langs/clj.md)
