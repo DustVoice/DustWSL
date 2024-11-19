@@ -9,7 +9,7 @@ The easiest way for me, since I have set the _URL of public key_ attribute on my
     ```
 - `fetch` the public key from the URL
     ```,lang=gpg/card>
-    gpg/card> fetch
+    fetch
     ```
 - `quit` the `card-edit`
 - `edit` the key
@@ -17,4 +17,9 @@ The easiest way for me, since I have set the _URL of public key_ attribute on my
     gpg --edit-key info@dustvoice.de
     ```
 - `trust` it ultimately (option `5`), as it's my own key, and confirming it with `y`
+    ```,lang=gpg>
+    trust
+    5
+    y
+    ```
 - `save` the changes and quit the prompt.
