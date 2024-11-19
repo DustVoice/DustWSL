@@ -15,62 +15,62 @@ For me, the simplest procedure was to
 3.  Run the included `Arch.exe`
 4.  Change the root password
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     passwd
     ```
 
 5.  Add the `wheel` group to the allowed `sudo` users
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
     ```
 
 6.  Choose a username for your new user
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     export username={username}
     ```
 
     and add this new user to the `wheel` group
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     useradd -m -G wheel -s /bin/bash $username
     ```
 
 7.  Change the new user's password
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     passwd $username
     ```
 
 8.  Exit the WSL environment
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     exit
     ```
 
 9.  Set the new user as the default one
 
-    ```powershell
+    ```powershell,lang=PowerShell,icon=.devicon-powershell-plain
     Arch.exe config --default-user {username}
     ```
 
 10. Reboot the PC or alternatively restart `LxssManager` with
 
-    ```powershell
+    ```powershell,lang=PowerShell,icon=.devicon-powershell-plain
     net stop lxssmanager
     net start lxssmanager
     ```
 
 11. After that reenter WSL with
 
-    ```powershell
+    ```powershell,lang=PowerShell,icon=.devicon-powershell-plain
     Arch.exe
     ```
 
 12. Setup the `pacman` keyring
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     sudo pacman-key --init
     sudo pacman-key --populate
     sudo pacman -Sy archlinux-keyring
@@ -78,7 +78,7 @@ For me, the simplest procedure was to
 
 13. Update the base system
 
-    ```bash
+    ```bash,nolang,icon=.fa.fa-terminal
     sudo pacman -Su
     ```
 
@@ -87,13 +87,13 @@ For me, the simplest procedure was to
 >
 > 1. It is best practice to backup your original mirrorlist.
 >
->    ```bash
+>    ```bash,nolang,icon=.fa.fa-terminal
 >    sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 >    ```
 >
 > 2. Generate a mirrorlist and save it to     `/etc/pacman.d/mirrorlist`
 >
->    ```bash
+>    ```bash,nolang,icon=.fa.fa-terminal
 >    curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
 >    | sudo tee /etc/pacman.d/mirrorlist
 >    ```
@@ -103,7 +103,7 @@ For me, the simplest procedure was to
 > Alternatively you can automatically pick the 5 best mirrors and save them,
 > although you need the `pacman-contrib` package installed for the `rankmirrors` command.
 >
-> ```bash
+> ```bash,nolang,icon=.fa.fa-terminal
 > sudo pacman -Syu pacman-contrib
 > curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
 > | sed -e 's/^#Server/Server/' -e '/^#/d' \
@@ -122,7 +122,7 @@ I initially had no access to the internet.
 
 This can be confirmed by running
 
-```bash
+```bash,nolang,icon=.fa.fa-terminal
 curl https://archlinux.org
 ```
 
@@ -130,7 +130,7 @@ To make WSL proxy-aware, I needed to
 
 1. Populate my `~/.bashrc` with
 
-   ```bash
+   ```bash,lang=Bash,icon=.devicon-bash-plain,filepath=~/.bashrc
    export http_proxy=http://<hostname>:<port>
    export https_proxy=$http_proxy
    export ftp_proxy=$http_proxy
@@ -138,20 +138,20 @@ To make WSL proxy-aware, I needed to
 
 2. Source it with
 
-   ```bash
+   ```bash,nolang,icon=.fa.fa-terminal
    source ~/.bashrc
    ```
 
 3. Allow `sudo` to pass these environment variables through by
    populating `/etc/sudoers.d/proxy` with
 
-   ```txt
+   ```txt,nolang,icon=.fa.fa-file-text-o,filepath=/etc/sudoers.d/proxy
    Defaults env_keep += "http_proxy https_proxy ftp_proxy"
    ```
 
 Rerunning the `curl`-command should now produce a response
 and `pacman` should update and upgrade just fine:
 
-```bash
+```bash,nolang,icon=.fa.fa-terminal
 sudo pacman -Syyuu
 ```

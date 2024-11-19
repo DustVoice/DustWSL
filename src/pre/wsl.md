@@ -41,14 +41,14 @@ or you can dig your way through the _Control Panel_.
 
 To install WSL from a `cmd.exe`-prompt or _PowerShell_ run
 
-```shell
-wsl --install -d Ubuntu`
+```console,lang=Console,icon=.devicon-bash-plain
+wsl --install -d Ubuntu "Test"
 ```
 
 **with elevated privileges**,
 or if you've already installed WSL in the past, run
 
-```shell
+```console,lang=Console,icon=.devicon-bash-plain
 wsl --update
 ```
 
@@ -72,7 +72,7 @@ This includes
     `.msixbundle`)
 2.  Installing it by running
 
-    ```powershell
+    ```powershell,lang=PowerShell,icon=.devicon-powershell-plain
     Add-AppxPackage Microsoft.WSL_{version}_{arch}.msixbundle
     ```
 

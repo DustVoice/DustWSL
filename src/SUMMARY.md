@@ -2,6 +2,6 @@
 
 [Introduction](./README.md)
 
-- [Prerequisites](./pre/README.md)
-  - [WSL](./pre/wsl.md)
-  - [ArchWSL](./pre/archwsl.md)
+# Prerequisites
+- [WSL](./pre/wsl.md)
+- [ArchWSL](./pre/archwsl.md)
