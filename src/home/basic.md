@@ -36,7 +36,7 @@ makepkg -si
 From now on we can simply substitute `pacman` with `paru`.
 
 > [!IMPORTANT]
-> `paru` is **not** supposed to be run with /root/ privileges.
+> `paru` is **not** supposed to be run with **root** privileges.
 > You shouldn't use `sudo paru`!
 > Paru will invoke a `sudo` prompt on its own!
 >
