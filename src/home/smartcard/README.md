@@ -1,0 +1,21 @@
+# Smart Card
+
+---
+- [x] [`usbutils`](https://archlinux.org/packages/core/x86_64/usbutils/)
+---
+
+In order to really finish setting up my dotfiles,
+I need to have access to my Yubico YubiKey from within WSL.
+
+Previously (especially with WSL v1), this was an absolute pain in the butt!
+With WSL2 and better support overall, it's actually not that bad.
+
+To use this, we will use `usbip`, which basically forwards USB over IP/Network,
+as the name implies.
+Forwarding or sharing sockets, or similar,
+is an absolute nightmare, so this enables a quick and easy operation.
+
+The only downside is that the device won't be available on Windows anymore.
+This is either the case _while the device is attached_, or even
+_as long as it's bound_ (see below for further explanation).
+This I can live with, as my whole development environment lives within WSL anyways.
