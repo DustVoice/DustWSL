@@ -3,10 +3,12 @@
 [Introduction](./README.md)
 
 # Prerequisites
+
 - [WSL](./pre/wsl.md)
 - [ArchWSL](./pre/archwsl.md)
 
 # Setup `$HOME`
+
 - [Basic tools](./home/basic.md)
 - [Dotfiles Prerequisites](./home/dotpre.md)
 - [Dotfiles](./home/dotter.md)
@@ -22,6 +24,7 @@
 - [Scripts](./home/scripts.md)
 
 # Optional
+
 - [Programming Languages](./opt/langs/README.md)
   - [Rust](./opt/langs/rust.md)
   - [Julia](./opt/langs/julia.md)

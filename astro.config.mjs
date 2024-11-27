@@ -6,21 +6,26 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: "DustWSL - DustVoice's WSL from scratch",
+			title: "DustWSL",
 			social: {
 				github: 'https://github.com/DustVoice/DustWSL',
 			},
 			sidebar: [
 				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
+					label: 'Introduction',
+					slug: 'index'
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Prerequisites',
+					autogenerate: { directory: 'pre' },
+				},
+				{
+					label: 'Setting up HOME',
+					autogenerate: { directory: 'home' },
+				},
+				{
+					label: 'Optional',
+					autogenerate: { directory: 'opt' },
 				},
 			],
 		}),
