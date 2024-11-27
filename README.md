@@ -14,13 +14,13 @@ As stated in the book's introduction:
 
 All commands are run from the root of the project, from a terminal
 
-| Command                    | Action                                           |
-| :------------------------- | :----------------------------------------------- |
-| `bun install`              | Installs dependencies                            |
-| `bunx --bun astro dev`     | Starts local dev server at `localhost:4321`      |
-| `bunx --bun astro build`   | Build your production site to `./dist/`          |
-| `bunx --bun astro preview` | Preview your build locally, before deploying     |
-| `bunx --bun astro ...`     | Run CLI commands like `astro add`, `astro check` |
+| Command                    | Action                                             |
+| :------------------------- | :------------------------------------------------- |
+| `bun install --yarn`       | Installs dependencies + creates backup `yarn.lock` |
+| `bunx --bun astro dev`     | Starts local dev server at `localhost:4321`        |
+| `bunx --bun astro build`   | Build your production site to `./dist/`            |
+| `bunx --bun astro preview` | Preview your build locally, before deploying       |
+| `bunx --bun astro ...`     | Run CLI commands like `astro add`, `astro check`   |
 
 > [!IMPORTANT]
 > This might **not** work on Windows.
