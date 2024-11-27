@@ -21,3 +21,7 @@ All commands are run from the root of the project, from a terminal
 | `bunx --bun astro build`   | Build your production site to `./dist/`          |
 | `bunx --bun astro preview` | Preview your build locally, before deploying     |
 | `bunx --bun astro ...`     | Run CLI commands like `astro add`, `astro check` |
+
+> [!IMPORTANT]
+> This might **not** work on Windows.
+> To let `bun` use `node` instead of `bun` itself, simply omit the `--bun` option.
