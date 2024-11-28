@@ -2,7 +2,7 @@
 title: DustVoice's WSL from scratch
 ---
 
-import { Aside } from "@astrojs/starlight/components";
+import { Aside, CardGrid, Card } from "@astrojs/starlight/components";
 
 This guide is an attempt at providing a guide for my [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install) setup based on [Arch Linux](https://archlinux.org), or rather [ArchWSL](https://github.com/yuk7/ArchWSL).
 
@@ -17,28 +17,32 @@ It is mainly intended as a set of personal mental crutches, so the following dis
 
 </Aside>
 
-## Overview
+I segmented this guide into multiple parts for better structuring
 
-### Prerequisites
+<CardGrid stagger>
+  <Card title="Prerequisites">
+    In this part we are mainly concerned about setting up WSL in general. For
+    that we need to do a bit of configuration outside and inside the WSL
+    environment. First off [WSL](./wsl/README.md) gets set up (Kernel) and then
+    [ArchWSL](./archwsl/README.md) (Distro).
+  </Card>
+  <Card title="Setup HOME">
+    In this part I set up my `$HOME` directory and environment, with all the
+    basic tools needed to actually be able to use WSL.
+  </Card>
+  <Card title="Optional">
+    This part is more about additional tooling and software needed to develop with different
+    programming languages, having GUI applications available, etc.
+    This section is way more, as the name suggests, optional.
+    And even I personally might decide I don't need language _X_ on a particular system.
 
-In this part we are mainly concerned about setting up WSL in general.
-For that we need to do a bit of configuration outside and inside the WSL environment.
-First off [WSL](./wsl/README.md) gets set up (Kernel) and then [ArchWSL](./archwsl/README.md) (Distro).
+    <Aside>
+    Some chapters in **Optional** might be referenced from earlier _not so
+    optional_ parts of my setup.
+    </Aside>
 
-### Setup `$HOME`
-
-In this part I set up my `$HOME` directory and environment,
-with all the basic tools needed to actually be able to use WSL.
-
-### Part 3: Optional
-
-This part is more about additional tooling and software needed to develop with different
-programming languages, having GUI applications available, etc.
-This section is way more, as the name suggests, optional.
-And even I personally might decide I don't need language _X_ on a particular system.
-
-> [!NOTE]
-> Some chapters in **Optional** might be referenced from earlier _not so optional_ parts of my setup.
+  </Card>
+</CardGrid>
 
 ## Syntactic Sugar
 
