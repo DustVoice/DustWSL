@@ -1,7 +1,11 @@
-# Smart Card
+---
+title: Smart Card
+---
 
 ---
+
 - [x] [`usbutils`](https://archlinux.org/packages/core/x86_64/usbutils/)
+
 ---
 
 In order to really finish setting up my dotfiles,

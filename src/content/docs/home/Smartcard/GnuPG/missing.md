@@ -1,15 +1,20 @@
-# Where is it?
+---
+title: Where is it?
+---
 
 ---
+
 - [x] [`ccid`](https://archlinux.org/packages/extra/x86_64/ccid/)
 - [x] [`pcsclite`](https://archlinux.org/packages/extra/x86_64/pcsclite/)
 - [ ] [`pcsc-tools`](https://archlinux.org/packages/extra/x86_64/pcsc-tools/)
+
 ---
 
 In my case the smart card wasn't immediately available to `gpg`,
 despite it clearly showing up in `lsusb`.
 
 You can check this with
+
 ```bash,nolang,icon=.fa.fa-terminal
 gpg --card-status
 ```
@@ -24,12 +29,14 @@ which would normally be made possible by installing [`libusb-compat`](https://ar
 To use the smart card, we need to install [`pcsclite`](https://archlinux.org/packages/extra/x86_64/pcsclite/),
 which manages the smart card, as well as [`ccid`](https://archlinux.org/packages/extra/x86_64/ccid/),
 which is a generic CCID driver.
+
 ```bash,nolang,icon=.fa.fa-terminal
 paru -S pcsclite ccid
 ```
 
 Then we _enable_ and _start_ the `pcscd` socket and service,
 which means it will be started, whenever needed
+
 ```bash,nolang,icon=.fa.fa-terminal
 sudo systemctl enable pcscd
 sudo systemctl start pcscd
@@ -42,6 +49,7 @@ forwarding the smart card to WSL will most likely throw errors.
 Following the wiki on how to fix this, we simply add a new `polkit` rule to allow all users of the `wheel` group
 (which our user is a part of), access to the smart card.
 The `polkit` rules are written in JavaScript and I chose to put this rule in `/etc/polkit-1/rules.d/99-pcscd.rules`.
+
 ```js,lang=JavaScript,icon=.devicon-javascript-plain,filepath=/etc/polkit-1/rules.d/99-pcscd.rules
 polkit.addRule(function(action, subject) {
     if (action.id == "org.debian.pcsc-lite.access_card" &&
@@ -62,10 +70,13 @@ Restart `polkit.service`
 ```bash,nolang,icon=.fa.fa-terminal
 sudo systemctl restart polkit.service
 ```
+
 or even better, restart WSL (only restarting `polkit` didn't work for me)
+
 ```bash,nolang,icon=.fa.fa-terminal
 exit
 ```
+
 ```powershell,lang=PowerShell,icon=.devicon-powershell-plain
 wsl.exe --shutdown
 arch.exe
@@ -73,6 +84,7 @@ arch.exe
 
 In my case, it was still trying to connect to the smart card using the integrated `ccid`,
 so I needed to disable it by modifying/creating `~/.gnupg/scdaemon.conf`
+
 ```txt,nolang,icon=.fa.fa-file-text-o,filepath=~/.gnupg/scdaemon.conf
 disable-ccid
 ```
@@ -86,6 +98,7 @@ disable-ccid
 > `polkit` rule and a WSL restart, `pcsc_scan` should work as a normal user.
 >
 > You can also check what `gpg-agent` is doing with
+>
 > ```bash,nolang,icon=.fa.fa-terminal
 > systemctl --user status gpg-agent
 > ```

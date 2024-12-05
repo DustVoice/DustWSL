@@ -1,7 +1,11 @@
-# Dotfiles
+---
+title: Dotfiles
+---
 
 ---
+
 - [x] [`dotter-rs-bin`](https://aur.archlinux.org/packages/dotter-rs-bin)
+
 ---
 
 To manage my dotfiles, I'm currently using [`dotter`](https://github.com/SuperCuber/dotter).

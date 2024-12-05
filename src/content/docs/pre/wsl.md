@@ -1,4 +1,6 @@
-# WSL
+---
+title: WSL
+---
 
 In this part, we're mainly concerned about WSL 2 itself,
 or in more precise terms the WSL _kernel_.

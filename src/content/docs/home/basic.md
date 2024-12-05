@@ -1,12 +1,16 @@
-# Basic tools
+---
+title: Basic tools
+---
 
 ---
+
 - [x] [`base-devel`](https://archlinux.org/packages/core/any/base-devel/)
 - [x] [`git`](https://archlinux.org/packages/extra/x86_64/git/)
 - [x] [`openssh`](https://archlinux.org/packages/core/x86_64/openssh/)
+
 ---
 
-First off, we need to install some basic tools to be able to set up the *dotfiles* correctly.
+First off, we need to install some basic tools to be able to set up the _dotfiles_ correctly.
 
 ## Version Control
 
@@ -24,7 +28,7 @@ In order for us to install this package in a second, we also need the `base-deve
 sudo pacman -S base-devel
 ```
 
-We can now clone the repository `paru-bin` from *AUR* (this way we don't need to compile it),
+We can now clone the repository `paru-bin` from _AUR_ (this way we don't need to compile it),
 as well as build and install it.
 
 ```bash,nolang,icon=.fa.fa-terminal
@@ -35,8 +39,7 @@ makepkg -si
 
 From now on we can simply substitute `pacman` with `paru`.
 
-> [!IMPORTANT]
-> `paru` is **not** supposed to be run with **root** privileges.
+> [!IMPORTANT] > `paru` is **not** supposed to be run with **root** privileges.
 > You shouldn't use `sudo paru`!
 > Paru will invoke a `sudo` prompt on its own!
 >

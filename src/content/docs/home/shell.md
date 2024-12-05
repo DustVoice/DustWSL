@@ -1,7 +1,11 @@
-# Shell
+---
+title: Shell
+---
 
 ---
+
 - [x] [`nushell`](https://archlinux.org/packages/extra/x86_64/nushell/)
+
 ---
 
 In order for me to not go insane with the default `bash` shell,

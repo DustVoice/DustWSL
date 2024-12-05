@@ -17,15 +17,16 @@ export default defineConfig({
 				},
 				{
 					label: 'Prerequisites',
-					autogenerate: { directory: 'pre' },
+					items: ["pre", "pre/wsl", "pre/archwsl"],
 				},
 				{
-					label: 'Setting up HOME',
-					autogenerate: { directory: 'home' },
-				},
-				{
-					label: 'Optional',
-					autogenerate: { directory: 'opt' },
+					label: 'Home',
+					items: [
+						{
+							label: "Smart Card",
+							autogenerate: { directory: 'home/smartcard' },
+						}
+					],
 				},
 			],
 		}),

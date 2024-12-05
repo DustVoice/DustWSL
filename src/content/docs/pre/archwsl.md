@@ -1,4 +1,6 @@
-# ArchWSL
+---
+title: ArchWSL
+---
 
 In this part, we're installing the distro itself.
 

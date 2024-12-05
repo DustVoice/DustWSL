@@ -1,4 +1,6 @@
-# USBIP
+---
+title: USBIP
+---
 
 We simply need to install the [`usbipd-win`](https://github.com/dorssel/usbipd-win) software on our Windows machine.
 

@@ -1,7 +1,11 @@
-# Dotfiles Prerequisites
+---
+title: Dotfiles Prerequisites
+---
 
 ---
+
 - [ ] [`jujutsu`](https://archlinux.org/packages/extra/x86_64/jujutsu/)
+
 ---
 
 Before we can use the dotfiles we need to download them first, duh.
