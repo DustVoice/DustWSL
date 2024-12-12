@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
 // https://astro.build/config
 export default defineConfig({
@@ -55,6 +57,14 @@ export default defineConfig({
 					],
 				},
 			],
+			expressiveCode: {
+				themes: ['catppuccin-macchiato', 'catppuccin-latte'],
+				plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
+				defaultProps: {
+					// Disable line numbers by default
+					showLineNumbers: false,
+				},
+			}
 		}),
 	],
 	site: 'https://dustvoice.github.io',
