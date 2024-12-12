@@ -17,15 +17,41 @@ export default defineConfig({
 				},
 				{
 					label: 'Prerequisites',
-					items: ["pre", "pre/wsl", "pre/archwsl"],
+					items: ['pre', 'pre/wsl', 'pre/archwsl'],
 				},
 				{
-					label: 'Home',
+					label: '$HOME',
 					items: [
+						'home',
+						'home/basic',
+						'home/dotpre',
+						'home/dotter',
+						'home/shell',
 						{
-							label: "Smart Card",
-							autogenerate: { directory: 'home/smartcard' },
+							label: 'Smartcard',
+							items: [
+								'home/smartcard',
+								'home/smartcard/usbip',
+								{
+									label: 'GnuPG',
+									items: [
+										'home/smartcard/gnupg',
+										'home/smartcard/gnupg/permission',
+										'home/smartcard/gnupg/missing',
+										'home/smartcard/gnupg/register',
+										'home/smartcard/gnupg/ssh',
+									]
+								},
+								'home/scripts',
+							]
 						}
+					],
+				},
+				{
+					label: 'Optional',
+					items: [
+						'opt',
+						'opt/doom'
 					],
 				},
 			],
