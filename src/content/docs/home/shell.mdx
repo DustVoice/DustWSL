@@ -1,0 +1,86 @@
+---
+title: (Nu)Shell
+---
+
+import { Card } from "@astrojs/starlight/components";
+
+<Card title="Required" icon="puzzle">
+
+[`nushell`](https://archlinux.org/packages/extra/x86_64/nushell/)
+
+</Card>
+
+Before we proceed further, I will quickly install my shell next, so I don't go insane from using `bash`.
+Of course, you can use any shell you want.
+In my case, I'll be using [nushell](https://www.nushell.sh).
+
+I am using `nu` because of its nice functionality<sup>read: I use `rust` btw</sup>.
+
+```sh
+paru -S nushell
+```
+
+## Set it as default
+
+If you remember correctly, we set the login shell to `bash` when creating the custom user,
+so you might wonder why we didn't directly set it to `nu`.
+
+Well nushell **isn't POSIX compliant**, and neither does it want to be.
+Therefore running `nu` as a login shell might not be the absolute best experience you'll ever have.
+
+Instead, we populate the `.bashrc` with some scripting that will let `nu` take over any _interactive_ shell,
+while scripts, etc. that expect a `POSIX` compliant shell can have their way.
+
+```bash title=~/.bashrc wrap ins={1-4}
+if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${BASH_EXECUTION_STRING} ]] then
+  exec nu
+fi
+```
+
+## Special case for WezTerm
+
+I'm using the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
+There is a weird behaviour however with nushell, where a `\n` gets inserted above the prompt on every keystroke.
+
+If you look inside `~/.config/nushell/config.nu`
+
+```nu title=~/.config/nushell/config.nu '("wezterm_pane" not-in $env)' collapse={2-9, 17-27} showLineNumbers startLineNumber=240
+    shell_integration: {
+        # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
+        osc2: true
+        # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
+        osc7: true
+        # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
+        osc8: true
+        # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
+        osc9_9: false
+        # osc133 is several escapes invented by Final Term which include the supported ones below.
+        # 133;A - Mark prompt start
+        # 133;B - Mark prompt end
+        # 133;C - Mark pre-execution
+        # 133;D;exit - Mark execution finished with exit code
+        # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
+        osc133: ("WEZTERM_PANE" not-in $env)
+        # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
+        # 633;A - Mark prompt start
+        # 633;B - Mark prompt end
+        # 633;C - Mark pre-execution
+        # 633;D;exit - Mark execution finished with exit code
+        # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
+        # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
+        # and also helps with the run recent menu in vscode
+        osc633: true
+        # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
+        reset_application_mode: true
+    }
+```
+
+`osc133` is disabled while using WezTerm, mitigating the aformentioned issue.
+
+This works flawlessly in windows, but unfortunately `wezterm_pane` isn't automatically set within wsl.
+
+To _hack_ this, i just added an `export` to my `~/.bashrc`
+
+```sh ins={1} title=~/.bashrc
+export wezterm_pane=0
+```

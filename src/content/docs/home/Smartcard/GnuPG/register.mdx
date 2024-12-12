@@ -1,0 +1,43 @@
+---
+title: Register the Smartcard
+---
+
+import { Steps } from "@astrojs/starlight/components";
+
+The final thing to do now, is to register the smartcard and the key to `gpg`.
+
+The easiest way for me, since I have set the _URL of public key_ attribute on my YubiKey, is to
+
+<Steps>
+
+1. `edit` the card
+
+   ```sh
+   gpg --card-edit
+   ```
+
+2. `fetch` the public key from the URL
+
+   ```sh frame="terminal" title="gpg/card>"
+   fetch
+   ```
+
+3. `quit` the `card-edit`
+
+4. `edit` the key
+
+   ```sh
+   gpg --edit-key info@dustvoice.de
+   ```
+
+5. `trust` it ultimately (option `5`), as it's my own key, and confirm it with `y`
+
+   ```sh frame="terminal" title="gpg>"
+   trust
+   5
+   y
+   ```
+
+6. `save` the changes and quit the prompt.
+
+</Steps>

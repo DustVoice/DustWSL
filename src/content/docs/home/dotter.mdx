@@ -2,16 +2,18 @@
 title: Dotfiles
 ---
 
----
+import { Card } from "@astrojs/starlight/components";
 
-- [x] [`dotter-rs-bin`](https://aur.archlinux.org/packages/dotter-rs-bin)
+<Card title="Required" icon="puzzle">
 
----
+[`dotter-rs-bin`](https://aur.archlinux.org/packages/dotter-rs-bin)
+
+</Card>
 
 To manage my dotfiles, I'm currently using [`dotter`](https://github.com/SuperCuber/dotter).
 We can simply install it from the AUR
 
-```bash,nolang,icon=.fa.fa-terminal
+```sh
 paru -S dotter-rs-bin
 ```
 
@@ -22,13 +24,13 @@ This file needs to be in the `.dotter` dir within the newly cloned dotfile repos
 
 I will enable both the **dev** as well as the **dev-extra** package within my config:
 
-```toml,lang=TOML,filepath=~/dotfiles/.dotter/local.toml
+```toml title=~/dotfiles/.dotter/local.toml showLineNumbers
 packages = ["dev", "dev-extra"]
 ```
 
 After that, a simple
 
-```bash,nolang,icon=.fa.fa-terminal,filepath=~/dotfiles
+```sh
 dotter deploy
 ```
 

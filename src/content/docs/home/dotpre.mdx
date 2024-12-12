@@ -1,0 +1,48 @@
+---
+title: Dotfiles Prerequisites
+---
+
+import { Aside, Card } from "@astrojs/starlight/components";
+
+<Card title="Optional" icon="puzzle">
+
+[`jujutsu`](https://archlinux.org/packages/extra/x86_64/jujutsu/)
+
+</Card>
+
+Before we can use the dotfiles we need to download them first, duh.
+
+<Card title="jujutsu">
+
+As I'm using [`jj`](https://github.com/martinvonz/jj) currently,
+I personally will use it to clone my dotfiles repository.
+As `jj` doesn't support _gitmodules_ however,
+I will still need to use `git` for that until I change this dependency.
+
+```bash,nolang,icon=.fa.fa-terminal
+paru -S jujutsu
+```
+
+<Aside>
+  You can still use `git` however, as `jj` uses `git` under the hood normally.
+</Aside>
+
+</Card>
+
+Cloning the repository will first be done using its `https` URL, as using `ssh` with my Yubikey requires my dotfiles to already be setup.
+As circular dependencies are a **lot** of fun <sub>not</sub>, I will simply change the remote URL later to use `ssh`.
+
+```sh
+jj git clone --colocate https://github.com/DustVoice/dotfiles.git
+```
+
+The only thing left to do is initialize the submodules
+
+<Aside>
+  As `jj` has no concepts of `git` submodules (yet), we can simply use the most
+  recent commit of the modules (`--remote`).
+</Aside>
+
+```sh
+git submodule update --init --remote
+```

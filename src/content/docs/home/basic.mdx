@@ -1,0 +1,87 @@
+---
+title: Basic tools
+---
+
+import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[`base-devel`](https://archlinux.org/packages/core/any/base-devel/)
+[`git`](https://archlinux.org/packages/extra/x86_64/git/)
+[`openssh`](https://archlinux.org/packages/core/x86_64/openssh/)
+
+</Card>
+<Card title="Optional" icon="puzzle">
+
+[`neovim`](https://archlinux.org/packages/extra/x86_64/neovim/)
+
+</Card>
+</CardGrid>
+
+First off, we need to install some basic tools to be able to set up the [dotfiles](./dotter) correctly.
+
+## AUR with `paru`
+
+<Steps>
+
+1. First install `git`, so we can grab an [AUR](https://aur.archlinux.org) helper named [`paru`](https://github.com/morganamilo/paru).
+
+   ```sh
+   sudo pacman -S git
+   ```
+
+2. In order for us to install this package in a second, we also need the `base-devel` package group
+
+   ```sh
+   sudo pacman -S base-devel
+   ```
+
+3. Now clone the repository `paru-bin` from _AUR_ (this way we don't need to compile it),
+   as well as build and install it.
+
+   ```sh
+   git clone https://aur.archlinux.org/paru-bin.git
+   cd paru-bin
+   makepkg -si
+   ```
+
+4. You can now remove the `~/paru-bin` directory, as `paru` is able to manage/update itself.
+
+5. From now on we can simply substitute `pacman` with `paru`.
+
+</Steps>
+
+<Aside type="caution">
+  `paru` is **not** supposed to be run with **root** privileges. You shouldn't
+  use `sudo paru`! Paru will invoke a `sudo` prompt on its own!
+
+  <Aside type="tip">
+    If you expect `paru` to take longer between `sudo` invocations than the timeout,
+    you can use the `--sudoloop` option to keep `sudo` from timeouting.
+  </Aside>
+</Aside>
+
+## Editor
+
+For easy file editing, I'm going to use [`neovim`](https://neovim.io), so editing is as simple as calling `nvim` on the file.
+
+```sh
+sudo pacman -S neovim
+```
+
+<Aside>
+  I _will_ install `emacs` later in the [Optional section](../opt) (although I
+  mainly use `nvim` nowadays), but in order for me to not bite into my desk, I
+  _will_ also need my _doomed_ config for that, which means it is a more
+  elaborate setup.
+</Aside>
+
+## SSH
+
+In order to switch to `ssh` URLs later in this document (e.g. for my dotfiles repo),
+we of course need to install it with the [`openssh`](https://archlinux.org/packages/core/x86_64/openssh/) package.
+
+```sh
+sudo pacman -S openssh
+```

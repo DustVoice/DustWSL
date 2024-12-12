@@ -1,0 +1,171 @@
+---
+title: ArchWSL
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+<Aside>
+  When in doubt, use the [ArchWSL
+  documentation](https://wsldl-pg.github.io/ArchW-docs/).
+</Aside>
+
+For me, the simplest procedure to install the Distro was to
+
+<Steps>
+
+1.  Download the latest `Arch.zip` file from the [project's release page](https://github.com/yuk7/ArchWSL/releases/latest)
+2.  Extract it to a folder where your user has unrestricted read/write permissions (so ideally stay away from `Program Files`, etc.)
+3.  Run the included `Arch.exe`
+4.  Change the root password
+
+    ```sh
+    passwd
+    ```
+
+5.  Add the `wheel` group to the allowed `sudo` users
+
+    ```sh
+    echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
+    ```
+
+6.  Choose a username for your new user
+
+    ```sh
+    export username={username}
+    ```
+
+    and add this new user to the `wheel` group
+
+    ```sh
+    useradd -m -G wheel -s /bin/bash $username
+    ```
+
+7.  Change the new user's password
+
+    ```sh
+    passwd $username
+    ```
+
+8.  Exit the WSL environment
+
+    ```sh
+    exit
+    ```
+
+9.  Set the new user as the default one
+
+    ```ps
+    Arch.exe config --default-user {username}
+    ```
+
+10. Reboot the PC or alternatively restart `LxssManager` with
+
+    ```ps
+    net stop lxssmanager
+    net start lxssmanager
+    ```
+
+11. After that reenter WSL with
+
+    ```ps
+    Arch.exe
+    ```
+
+12. Setup the `pacman` keyring
+
+    ```sh
+    sudo pacman-key --init
+    sudo pacman-key --populate
+    sudo pacman -Sy archlinux-keyring
+    ```
+
+13. Update the base system
+
+    ```sh
+    sudo pacman -Su
+    ```
+
+</Steps>
+
+<Aside type="tip">
+
+You can update your mirrorlist with your nearest mirrors.
+
+<Steps>
+
+1. Backup your original mirrorlist.
+
+   ```sh
+   sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+   ```
+
+2. Generate a mirrorlist and save it to `/etc/pacman.d/mirrorlist`
+
+   ```sh
+   curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+   | sudo tee /etc/pacman.d/mirrorlist
+   ```
+
+3. Uncomment desired lines in `/etc/pacman.d/mirrorlist` and move them to the top
+
+</Steps>
+
+Alternatively you can automatically pick the 5 best mirrors and save them,
+although you need the `pacman-contrib` package installed for the `rankmirrors` command.
+
+```sh
+sudo pacman -Syu pacman-contrib
+curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+| sed -e 's/^#Server/Server/' -e '/^#/d' \
+| rankmirrors -n 5 - \
+| sudo tee /etc/pacman.d/mirrorlist
+```
+
+</Aside>
+
+### Just Works<sup>TM</sup>?
+
+<Aside>
+  This should only be neccessary if you're behind a (corporate) `http` proxy
+</Aside>
+
+As I'm sitting behind a corporate `http` proxy, I initially had no access to the internet.
+
+This can be confirmed by running
+
+```sh
+curl https://archlinux.org
+```
+
+To make WSL proxy-aware, I needed to
+
+<Steps>
+
+1. Add the exports to the `~/.bashrc` with
+
+   ```bash title="~/.bashrc" ins={1-3}
+   export http_proxy=http://<hostname>:<port>
+   export https_proxy=$http_proxy
+   export ftp_proxy=$http_proxy
+   ```
+
+2. Source it
+
+   ```sh
+   source ~/.bashrc
+   ```
+
+3. Allow `sudo` to pass these environment variables through by
+   setting the `env_keep` property in `/etc/sudoers.d/proxy`
+
+   ```txt title="/etc/sudoers.d/proxy" ins={1}
+   Defaults env_keep += "http_proxy https_proxy ftp_proxy"
+   ```
+
+</Steps>
+
+Rerunning the `curl`-command should now produce a response and `pacman` should update and upgrade just fine:
+
+```sh
+sudo pacman -Syyuu
+```
