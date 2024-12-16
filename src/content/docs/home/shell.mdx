@@ -2,16 +2,23 @@
 title: (Nu)Shell
 ---
 
-import { Aside, Card } from "@astrojs/starlight/components";
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
 
+<CardGrid>
 <Card title="Required" icon="puzzle">
 
 [nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
+[carapace-bin](https://aur.archlinux.org/packages/carapace-bin)
 [starship](https://archlinux.org/packages/extra/x86_64/starship/)
 [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/)
-[jujutsu](https://archlinux.org/packages/extra/x86_64/jujutsu/)
 
 </Card>
+<Card title="Optional" icon="puzzle">
+
+[zellij](https://archlinux.org/packages/extra/x86_64/zellij/)
+
+</Card>
+</CardGrid>
 
 Before we proceed further, I will quickly install my shell next, so I don't go insane from using `bash`.
 Of course, you can use any shell you want.
@@ -21,14 +28,11 @@ I am using `nu` because of its nice functionality<sup>read: I use `rust` btw</su
 
 ## Install missing tools
 
-To properly utilize my `nu` setup, I need to have the `starship`, `zoxide` and `jj` commands available.
+To properly utilize my `nu` setup, I need to have the following tools available
 
-<Aside>
-
-If you installed `jj` in the [Dotfiles Prerequisites](./dotpre) chapter, you
-can omit it here.
-
-</Aside>
+- [carapace-bin](https://github.com/carapace-sh/carapace-bin/) (command completer),
+- [starship](https://starship.rs) (prompt),
+- [zoxide](https://github.com/ajeetdsouza/zoxide) (smarter `cd`)
 
 <Aside type="tip">
 
