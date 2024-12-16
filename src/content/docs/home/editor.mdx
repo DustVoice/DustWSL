@@ -1,0 +1,82 @@
+---
+title: Editor
+---
+
+import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[neovim](https://archlinux.org/packages/extra/x86_64/neovim/)
+[wget](https://archlinux.org/packages/extra/x86_64/wget/)
+[fd](https://archlinux.org/packages/extra/x86_64/fd/)
+[ripgrep](https://archlinux.org/packages/extra/x86_64/ripgrep/)
+[nodejs](https://archlinux.org/packages/extra/x86_64/nodejs/)
+[npm](https://archlinux.org/packages/extra/x86_64/npm/)
+[python](https://archlinux.org/packages/core/x86_64/python/)
+[python-neovim](https://archlinux.org/packages/extra/any/python-pynvim/)
+[python-pip](https://archlinux.org/packages/extra/any/python-pip/)
+
+</Card>
+<Card title="Optional" icon="puzzle">
+
+[wl-clipboard](https://archlinux.org/packages/extra/x86_64/wl-clipboard/)
+[xsel](https://archlinux.org/packages/extra/x86_64/xsel/)
+[tree-sitter](https://archlinux.org/packages/extra/x86_64/tree-sitter/)
+[luarocks](https://archlinux.org/packages/extra/any/luarocks/)
+[lazyjj](https://archlinux.org/packages/extra/x86_64/lazyjj/)
+
+</Card>
+</CardGrid>
+
+## Editor
+
+For easy file editing, I'm going to use [`neovim`](https://neovim.io), so editing is as simple as calling `nvim` on the file.
+
+<Aside>
+
+I _will_ install `emacs` later in the [Optional section](../opt) (although I mainly use `nvim` nowadays),
+but in order for me to not bite into my desk, I _will_ also need my _doomed_ config for that,
+which means it is a more elaborate setup.
+
+</Aside>
+
+It is always a good idea to have
+[wget](https://www.gnu.org/software/wget/),
+[ripgrep](https://github.com/BurntSushi/ripgrep) and
+[fd](https://github.com/sharkdp/fd) installed,
+but with my Neovim config it's even more important,
+as [Telescope](https://github.com/nvim-telescope/telescope.nvim) and other plugins make heavy use of them.
+
+For clipboard integration, I'm installing both [wl-clipboard](https://github.com/bugaevc/wl-clipboard),
+as well as [xsel](http://www.vergenet.net/~conrad/software/xsel/).
+I use Wayland primarily, but it doesn't hurt to have both available,
+as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
+
+<Aside type="tip">
+
+Just as a fallback, it might be wise to also install [win32yank](https://github.com/equalsraf/win32yank) on the Windows side.
+As Windows paths are normally appended to the WSL path, it is available to `nvim` within WSL, if you have it on your Windows path.
+To simplify this, simply install it using `scoop`
+
+```ps
+scoop.exe install win32yank
+
+```
+
+</Aside>
+
+As my Neovim config also includes [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) support,
+you need to have some kind of C/C++ compiler available.
+Normally Arch Linux on WSL2 should come with `gcc`.
+The `tree-sitter` binary isn't required normally, but it's nice to have available just in case.
+
+Also some LSPs, require `node` and `npm` for installing the language servers.
+By installing them now, before opening neovim, we make sure it doesn't accidentally pick up any Windows `npm`.
+Trust me, you'll never get back the day you spent troubleshooting some weird LSP errors due to `npm` not being WSL-native.
+
+Some plugins require Python 3, so we're also going to install that.
+
+If we want to edit the Neovim config, we also need tools for Lua, namely `luarocks`.
+
+As I use `jj`, I also want to install `lazyjj`, as it provides some integration for AstroNvim.

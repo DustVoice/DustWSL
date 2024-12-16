@@ -29,7 +29,9 @@ export default defineConfig({
 						'home/basic',
 						'home/dotpre',
 						'home/dotter',
+						'home/editor',
 						'home/shell',
+						'home/scripting',
 						{
 							label: 'Smartcard',
 							items: [
@@ -47,7 +49,6 @@ export default defineConfig({
 								},
 							],
 						},
-						'home/scripting',
 					],
 				},
 				{
