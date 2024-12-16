@@ -2,11 +2,14 @@
 title: (Nu)Shell
 ---
 
-import { Card } from "@astrojs/starlight/components";
+import { Aside, Card } from "@astrojs/starlight/components";
 
 <Card title="Required" icon="puzzle">
 
 [nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
+[starship](https://archlinux.org/packages/extra/x86_64/starship/)
+[zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/)
+[jujutsu](https://archlinux.org/packages/extra/x86_64/jujutsu/)
 
 </Card>
 
@@ -15,6 +18,27 @@ Of course, you can use any shell you want.
 In my case, I'll be using [nushell](https://www.nushell.sh).
 
 I am using `nu` because of its nice functionality<sup>read: I use `rust` btw</sup>.
+
+## Install missing tools
+
+To properly utilize my `nu` setup, I need to have the `starship`, `zoxide` and `jj` commands available.
+
+<Aside>
+
+If you installed `jj` in the [Dotfiles Prerequisites](./dotpre) chapter, you
+can omit it here.
+
+</Aside>
+
+<Aside type="tip">
+
+As Nushell currently doesn't have a built-in solution for background tasks,
+I am personally often using [Zellij](https://zellij.dev).
+
+There is also [pueue](https://github.com/Nukesor/pueue) with [some level of integration](https://www.nushell.sh/book/background_task.html),
+but I haven't really tried it out yet.
+
+</Aside>
 
 ## Set it as default
 
