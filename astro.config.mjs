@@ -43,18 +43,18 @@ export default defineConfig({
 										'home/smartcard/gnupg/missing',
 										'home/smartcard/gnupg/register',
 										'home/smartcard/gnupg/ssh',
-									]
+									],
 								},
-								'home/scripts',
-							]
-						}
+							],
+						},
+						'home/scripting',
 					],
 				},
 				{
 					label: 'Optional',
 					items: [
 						'opt',
-						'opt/doom'
+						'opt/doom',
 					],
 				},
 			],
