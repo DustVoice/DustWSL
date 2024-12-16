@@ -2,7 +2,7 @@
 title: Editor
 ---
 
-import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
 
 <CardGrid>
 <Card title="Required" icon="puzzle">
@@ -29,8 +29,6 @@ import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
 </Card>
 </CardGrid>
 
-## Editor
-
 For easy file editing, I'm going to use [`neovim`](https://neovim.io), so editing is as simple as calling `nvim` on the file.
 
 <Aside>
@@ -41,6 +39,8 @@ which means it is a more elaborate setup.
 
 </Aside>
 
+## General tools
+
 It is always a good idea to have
 [wget](https://www.gnu.org/software/wget/),
 [ripgrep](https://github.com/BurntSushi/ripgrep) and
@@ -48,14 +48,16 @@ It is always a good idea to have
 but with my Neovim config it's even more important,
 as [Telescope](https://github.com/nvim-telescope/telescope.nvim) and other plugins make heavy use of them.
 
-For clipboard integration, I'm installing both [wl-clipboard](https://github.com/bugaevc/wl-clipboard),
-as well as [xsel](http://www.vergenet.net/~conrad/software/xsel/).
-I use Wayland primarily, but it doesn't hurt to have both available,
-as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
+## Clipboard integration
 
-<Aside type="tip">
+For Neovim's clipboard integration, you kind of have to decide whether or not you want native clipboard integration with Wayland/X11.
+As a rough measure, you probably want clipboard integration over Windows if you use e.g. WezTerm installed on Windows to access WSL
+and you probably want native clipboard integration for Wayland/X11 if you use an installation of WezTerm from out of WSL.
 
-Just as a fallback, it might be wise to also install [win32yank](https://github.com/equalsraf/win32yank) on the Windows side.
+<CardGrid>
+<Card title="Clipboard via Windows">
+
+Simply install [win32yank](https://github.com/equalsraf/win32yank) on the Windows side.
 As Windows paths are normally appended to the WSL path, it is available to `nvim` within WSL, if you have it on your Windows path.
 To simplify this, simply install it using `scoop`
 
@@ -64,19 +66,38 @@ scoop.exe install win32yank
 
 ```
 
-</Aside>
+</Card>
+<Card title="Native clipboard">
+
+Install both [wl-clipboard](https://github.com/bugaevc/wl-clipboard),
+as well as [xsel](http://www.vergenet.net/~conrad/software/xsel/).
+I use Wayland primarily, but it doesn't hurt to have both available,
+as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
+
+</Card>
+</CardGrid>
+
+## Tree-sitter
 
 As my Neovim config also includes [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) support,
 you need to have some kind of C/C++ compiler available.
 Normally Arch Linux on WSL2 should come with `gcc`.
 The `tree-sitter` binary isn't required normally, but it's nice to have available just in case.
 
+## NodeJS
+
 Also some LSPs, require `node` and `npm` for installing the language servers.
 By installing them now, before opening neovim, we make sure it doesn't accidentally pick up any Windows `npm`.
 Trust me, you'll never get back the day you spent troubleshooting some weird LSP errors due to `npm` not being WSL-native.
 
+## Python
+
 Some plugins require Python 3, so we're also going to install that.
 
+## Lua
+
 If we want to edit the Neovim config, we also need tools for Lua, namely `luarocks`.
+
+## Lazyjj
 
 As I use `jj`, I also want to install `lazyjj`, as it provides some integration for AstroNvim.
