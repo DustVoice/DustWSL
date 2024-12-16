@@ -1,0 +1,52 @@
+---
+title: Scripting
+---
+
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
+[babashka-bin](https://aur.archlinux.org/packages/babashka-bin)
+[janet-lang-bin](https://aur.archlinux.org/packages/janet-lang-bin)
+[python](https://archlinux.org/packages/core/x86_64/python/)
+[hy](https://archlinux.org/packages/extra/any/hy/)
+
+</Card>
+<Card title="Optional" icon="puzzle">
+
+[clojure](https://archlinux.org/packages/extra/any/clojure/)
+[leiningen](https://archlinux.org/packages/extra/any/leiningen/)
+[neil](https://aur.archlinux.org/packages/neil)
+[janet-lang-bin](https://aur.archlinux.org/packages/janet-lang-bin)
+[pypy3](https://archlinux.org/packages/extra/x86_64/pypy3/)
+
+</Card>
+</CardGrid>
+
+Although _nushell_ provides us with some good scripting ability, as many shells do,
+I sometimes feel myself drawn to some other languages for my scripting needs.
+
+Today, I mainly use [Clojure](https://clojure.org/index), or rather [Babashka](https://babashka.org),
+for more advanced projects I use [Leiningen](https://leiningen.org) and sometimes [neil](https://github.com/babashka/neil).
+
+I'm currently also trying out [Janet](https://janet-lang.org), some features and properties are very intriguing for a system scripting language,
+but the ecosystem isn't as mature.
+
+I also sometimes feel like contorting myself, or in other words using [Python](https://www.python.org), though I try to use [PyPy](https://pypy.org).
+Not giving up on my lispy dreams, I'm trying out [Hy](https://hylang.org) with that.
+
+<Aside>
+
+I also considered using [xonsh](https://xon.sh) (maybe also with [coconut](https://coconut-lang.org)) as my main shell,
+but bad `nvim` support forces me to stay with `nu` at the moment,
+despite me fixing the weird slowdown issues with _xonsh_ by removing all `/mnt/c` paths from `$PATH`.
+
+For a UNIX system, all Windows files (`/mnt/c`) have the executable bit set,
+so when WSL appends the Windows paths to `$PATH`, like e.g. `C:\Windows\System32`,
+`xonsh` thinks they're all executables.
+In reality, only `.exe`s are executable but `xonsh` isn't interested in that fact,
+causing massive slowdowns and hiccups, especially when using `prompt-toolkit`.
+
+</Aside>
