@@ -52,7 +52,7 @@ First off, we need to install some basic tools to be able to set up the [dotfile
 
 </Steps>
 
-<Aside type="caution">
+<Aside type="danger">
   `paru` is **not** supposed to be run with **root** privileges. You shouldn't
   use `sudo paru`! Paru will invoke a `sudo` prompt on its own!
 
@@ -62,13 +62,18 @@ First off, we need to install some basic tools to be able to set up the [dotfile
   </Aside>
 </Aside>
 
+<Aside type="caution">
+
+From now on, I will cease to specify _trivial_ install instructions for packages,
+as both _normal_ and _AUR_ packages are easily installable with `paru`.
+
+Please refer to the package list at the top of a chapter for any packages used in it.
+
+</Aside>
+
 ## Editor
 
 For easy file editing, I'm going to use [`neovim`](https://neovim.io), so editing is as simple as calling `nvim` on the file.
-
-```sh
-sudo pacman -S neovim
-```
 
 <Aside>
   I _will_ install `emacs` later in the [Optional section](../opt) (although I
@@ -81,7 +86,3 @@ sudo pacman -S neovim
 
 In order to switch to `ssh` URLs later in this document (e.g. for my dotfiles repo),
 we of course need to install it with the [`openssh`](https://archlinux.org/packages/core/x86_64/openssh/) package.
-
-```sh
-sudo pacman -S openssh
-```

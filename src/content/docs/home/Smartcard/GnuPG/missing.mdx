@@ -28,10 +28,6 @@ which would normally be made possible by installing [`libusb-compat`](https://ar
 To use the smartcard, we need to install [`pcsclite`](https://archlinux.org/packages/extra/x86_64/pcsclite/), which manages the smartcard,
 as well as [`ccid`](https://archlinux.org/packages/extra/x86_64/ccid/), which is a generic CCID driver.
 
-```sh
-paru -S pcsclite ccid
-```
-
 Then we _enable_ and _start_ the `pcscd` socket and service, which means it will be started, whenever needed
 
 ```sh
