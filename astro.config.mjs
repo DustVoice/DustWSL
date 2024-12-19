@@ -34,6 +34,7 @@ export default defineConfig({
 						'home/scripting',
 						{
 							label: 'Smartcard',
+							collapsed: true,
 							items: [
 								'home/smartcard',
 								'home/smartcard/usbip',
