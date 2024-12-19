@@ -2,7 +2,7 @@
 title: Dotfiles
 ---
 
-import { Card } from "@astrojs/starlight/components";
+import { Aside, Card } from "@astrojs/starlight/components";
 
 <Card title="Required" icon="puzzle">
 
@@ -22,6 +22,16 @@ I will enable both the **dev** as well as the **dev-extra** package within my co
 ```toml title=~/dotfiles/.dotter/local.toml showLineNumbers
 packages = ["dev", "dev-extra"]
 ```
+
+<Aside type="tip">
+
+As we neither have an editor, nor a special shell setup yet, the easiest way to do it is probably using
+
+```sh
+echo packages = ["dev", "dev-extra"] > ~/dotfiles/.dotter/local.toml
+```
+
+</Aside>
 
 After that, a simple
 
