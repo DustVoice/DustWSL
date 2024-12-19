@@ -54,12 +54,14 @@ This is a known issue and until there are some decisions made upstream on how to
 [bnjmnt4n](https://github.com/bnjmnt4n) maintains a [fork](https://github.com/bnjmnt4n/jj/tree/ssh-openssh) and proposed a [PR](https://github.com/jj-vcs/jj/pull/3191),
 where he switched to OpenSSH, mitigating several of these issues.
 
-It is easily installed using `cargo`, although you need to actually have it set up (see the [Rust](./../opt/rust) chapter for that).
+It is easily installed using `cargo`, although you need to actually have it set up (see the [Rust](../../opt/rust) chapter for that).
 
 Note that you should have [CMake](https://cmake.org) installed.
 
 ```sh
 cargo install --git https://github.com/bnjmnt4n/jj.git --branch ssh-openssh --locked --bin jj jj-cli --features vendored-openssl
 ```
+
+Of course you would now also uninstall the `jujutsu` system package.
 
 </Aside>
