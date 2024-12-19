@@ -23,7 +23,7 @@ export default defineConfig({
 					items: ['pre', 'pre/wsl', 'pre/archwsl'],
 				},
 				{
-					label: '$HOME',
+					label: '/home/',
 					items: [
 						'home',
 						'home/basic',
@@ -57,7 +57,13 @@ export default defineConfig({
 					items: [
 						'opt',
 						'opt/gui',
-						'opt/doom',
+						{
+							label: 'Development',
+							items: [
+								'opt/rust',
+								'opt/doom',
+							],
+						}
 					],
 				},
 			],
