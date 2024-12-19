@@ -44,23 +44,6 @@ but I haven't really tried it out yet.
 
 </Aside>
 
-## Set it as default
-
-If you remember correctly, we set the login shell to `bash` when creating the custom user,
-so you might wonder why we didn't directly set it to `nu`.
-
-Well nushell **isn't POSIX compliant**, and neither does it want to be.
-Therefore running `nu` as a login shell might not be the absolute best experience you'll ever have.
-
-Instead, we populate the `.bashrc` with some scripting that will let `nu` take over any _interactive_ shell,
-while scripts, etc. that expect a `POSIX` compliant shell can have their way.
-
-```bash title=~/.bashrc wrap ins={1-4}
-if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${BASH_EXECUTION_STRING} ]] then
-  exec nu
-fi
-```
-
 ## Special case for WezTerm
 
 I'm using the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
@@ -115,3 +98,20 @@ You could theoretically install `wezterm` under WSL and use it that way,
 but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:Arch"`).
 
 </Aside>
+
+## Set it as default
+
+If you remember correctly, we set the login shell to `bash` when creating the custom user,
+so you might wonder why we didn't directly set it to `nu`.
+
+Well nushell **isn't POSIX compliant**, and neither does it want to be.
+Therefore running `nu` as a login shell might not be the absolute best experience you'll ever have.
+
+Instead, we populate the `.bashrc` with some scripting that will let `nu` take over any _interactive_ shell,
+while scripts, etc. that expect a `POSIX` compliant shell can have their way.
+
+```bash title=~/.bashrc wrap ins={1-4}
+if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${BASH_EXECUTION_STRING} ]] then
+  exec nu
+fi
+```
