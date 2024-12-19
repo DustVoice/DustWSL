@@ -50,13 +50,13 @@ export default defineConfig({
 								},
 							],
 						},
-						'home/gui',
 					],
 				},
 				{
 					label: 'Optional',
 					items: [
 						'opt',
+						'opt/gui',
 						'opt/doom',
 					],
 				},
