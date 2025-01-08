@@ -26,6 +26,20 @@ In my case, I'll be using [nushell](https://www.nushell.sh).
 
 I am using `nu` because of its nice functionality<sup>read: I use `rust` btw</sup>.
 
+<Aside>
+
+I also considered using [xonsh](https://xon.sh) (maybe also with [coconut](https://coconut-lang.org)) as my main shell,
+but bad `nvim` support forces me to stay with `nu` at the moment,
+despite me fixing the weird slowdown issues with _xonsh_ by removing all `/mnt/c` paths from `$PATH`.
+
+For a UNIX system, all Windows files (`/mnt/c`) have the executable bit set,
+so when WSL appends the Windows paths to `$PATH`, like e.g. `C:\Windows\System32`,
+`xonsh` thinks they're all executables.
+In reality, only `.exe`s are executable but `xonsh` isn't interested in that fact,
+causing massive slowdowns and hiccups, especially when using `prompt-toolkit`.
+
+</Aside>
+
 ## Install missing tools
 
 To properly utilize my `nu` setup, I need to have the following tools available

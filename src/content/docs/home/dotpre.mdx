@@ -2,14 +2,21 @@
 title: Dotfiles Prerequisites
 ---
 
-import { Aside, Card } from "@astrojs/starlight/components";
+import { Aside, Badge, Card, CardGrid } from "@astrojs/starlight/components";
 
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[git](https://archlinux.org/packages/extra/x86_64/git/)
+
+</Card>
 <Card title="Optional" icon="puzzle">
 
 [jujutsu](https://archlinux.org/packages/extra/x86_64/jujutsu/)
 [cmake](https://archlinux.org/packages/extra/x86_64/cmake/)
 
 </Card>
+</CardGrid>
 
 Before we can use the dotfiles we need to download them first, duh.
 
