@@ -1,0 +1,99 @@
+---
+title: Syntactic Sugar
+---
+
+import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+
+Throughout this document I use some special elements to make it easier for the reader to retrieve information at a glance.
+
+## Packages
+
+At the beginning of a chapter, I sometimes include a list of packages.
+This is an accumulated list of packages mentioned throughout this chapter.
+It makes it easier to see which packages are supposed to be installed, so nothing is forgotten.
+Mandatory or strongly suggested packages are checked, optional ones are not.
+
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[git](https://archlinux.org/packages/extra/x86_64/git/)
+
+</Card>
+<Card title="Optional" icon="puzzle">
+
+[vlc](https://archlinux.org/packages/extra/x86_64/vlc/)
+
+</Card>
+</CardGrid>
+
+## Asides
+
+I use [Asides](https://starlight.astro.build/components/asides/)
+in some places to provide some additional notes, comments, tips or warnings.
+
+<Aside>
+
+Highlights information that users should take into account, even when
+skimming.
+
+</Aside>
+
+<Aside type="caution">
+
+Critical content demanding immediate user attention due to potential risks.
+
+</Aside>
+
+<Aside type="tip">
+
+Optional information to help a user be more successful.
+
+</Aside>
+
+<Aside type="danger">
+
+Negative potential consequences of an action.
+
+</Aside>
+
+## Terminal and Code blocks
+
+I try to enhance the code blocks with some useful information, such as language/fileformat, filename, etc.
+
+Executing a command within Windows, for example, will normally be marked by a block,
+highlighted with `PowerShell`-specific syntax
+
+```ps
+Get-Language
+which.exe wsl
+```
+
+Executing a command from within WSL will be marked by a normal terminal frame.
+An optional directory to run the commmand in, can also be specified
+
+```sh frame="terminal" title="~/dotfiles"
+ls -la | grep ".el"
+```
+
+If a file or code snippet is written in a specific language,
+it will be also highlighted appropriately
+
+```rust
+println!("Hello world");
+```
+
+A text file also has its appropriate symbol.
+A filepath can optionally be specified, same as with a code snippet.
+
+```txt title=~/log.txt
+[INFO:] Test
+```
+
+<Aside type="tip">
+
+For further information, consult the [Astro doc](https://starlight.astro.build/guides/authoring-content/#code-blocks),
+the [Starlight doc](https://starlight.astro.build/components/code/)
+and finally the [Expressive Code doc](https://expressive-code.com/key-features/code-component/)
+on this topic.
+
+</Aside>

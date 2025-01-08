@@ -1,0 +1,54 @@
+---
+title: Tooling
+---
+
+import { Aside, Tabs, TabItem, Icon } from "@astrojs/starlight/components";
+
+Of course, one would need to be able to edit this Guide to update it.
+
+I use [Starlight](https://starlight.astro.build),
+which in turn is based on [Astro](https://astro.build).
+
+As a package manager, I currently use [pnpm](https://pnpm.io).
+Below are the commands for package managers I am using / have used in the past.
+
+## Commands
+
+All commands are run from the root of the project, from a terminal
+
+<Tabs>
+
+<TabItem label="pnpm" icon="pnpm">
+
+| Command                     | Action                                                         |
+| :-------------------------- | :------------------------------------------------------------- |
+| `pnpm install`              | Installs dependencies + creates backup `yarn.lock`             |
+| `pnpm dev`                  | Starts local dev server at `localhost:4321`                    |
+| `pnpm build`                | Build your production site to `./dist/`                        |
+| `pnpm preview`              | Preview your build locally, before deploying                   |
+| `pnpm astro ...`            | Run CLI commands like `astro add`, `astro check`, `astro sync` |
+| `pnpm dlx @astrojs/upgrade` | Update Starlight and therefore Astro, etc.                     |
+
+</TabItem>
+
+<TabItem label="bun" icon="bun">
+
+| Command                      | Action                                                         |
+| :--------------------------- | :------------------------------------------------------------- |
+| `bun install`                | Installs dependencies + creates backup `yarn.lock`             |
+| `bunx --bun astro dev`       | Starts local dev server at `localhost:4321`                    |
+| `bunx --bun astro build`     | Build your production site to `./dist/`                        |
+| `bunx --bun astro preview`   | Preview your build locally, before deploying                   |
+| `bunx --bun astro astro ...` | Run CLI commands like `astro add`, `astro check`, `astro sync` |
+| `bunx @astrojs/upgrade`      | Update Starlight and therefore Astro, etc.                     |
+
+<Aside type="tip">
+
+If you omit `--bun`, bun will run the command using `node` instead of `bun`,
+which in my case made it work under Windows.
+
+</Aside>
+
+</TabItem>
+
+</Tabs>
