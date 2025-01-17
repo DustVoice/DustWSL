@@ -44,6 +44,10 @@ export default defineConfig({
 									'home/scripting',
 									{
 										label: 'Smartcard',
+										badge: {
+											text: "Optional",
+											variant: "note",
+										},
 										collapsed: true,
 										items: [
 											'home/smartcard',
@@ -70,11 +74,21 @@ export default defineConfig({
 						icon: 'information',
 						items: [
 							'ref',
-							'ref/gui',
+							{
+								label: 'GUI',
+								items: [
+									'ref/gui',
+								],
+							},
 							{
 								label: 'Development',
 								items: [
-									'ref/rust',
+									{
+										label: 'Languages',
+										autogenerate: {
+											directory: 'ref/lang',
+										},
+									},
 									'ref/doom',
 								],
 							}
