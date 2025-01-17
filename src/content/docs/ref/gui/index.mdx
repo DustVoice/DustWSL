@@ -2,19 +2,32 @@
 title: Overview
 ---
 
-import { Aside, Card, Steps } from "@astrojs/starlight/components";
+import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+
+<CardGrid>
+
+<Card title="Required" icon="puzzle">
+
+[mesa](https://archlinux.org/packages/extra/x86_64/mesa/)
+
+</Card>
 
 <Card title="Optional" icon="puzzle">
 
 [wev](https://archlinux.org/packages/extra/x86_64/wev/)
 [xorg-xev](https://archlinux.org/packages/extra/x86_64/xorg-xev/)
+[mesa-utils](https://archlinux.org/packages/extra/x86_64/mesa-utils/)
 
 </Card>
+
+</CardGrid>
 
 Some time ago, you would need to have a complicated, convoluted and unreliable setup
 for using GUI apps within WSL.
 Thankfully, we now have [WSLg](https://github.com/microsoft/wslg),
 which transforms this whole ordeal into a non-pain-in-the-butt experience.
+
+## Wayland & X11
 
 If you use the "official" Distribution, i.e. Ubuntu, it should also work out of the box.
 As we use ArchWSL, we have to setup the correct symlinks though.
@@ -76,5 +89,15 @@ As we use ArchWSL, we have to setup the correct symlinks though.
 <Aside type="tip">
 
 You can test both Wayland and X11 functionality with the `wev` and `xev` commands respectively.
+
+</Aside>
+
+## OpenGL
+
+For me it seem that installing [mesa](https://archlinux.org/packages/extra/x86_64/mesa/) was enough to make e.g. CadQuery run without problems.
+
+<Aside type="tip">
+
+To test if OpenGL works, you can use the `glxinfo` and/or `glxgears` commands included in [mesa-utils](https://archlinux.org/packages/extra/x86_64/mesa-utils/).
 
 </Aside>
