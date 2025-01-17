@@ -1,0 +1,131 @@
+---
+title: Python
+---
+
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
+
+<CardGrid>
+<Card title="Required" icon="puzzle">
+
+[python](https://archlinux.org/packages/core/x86_64/python/)
+
+</Card>
+<Card title="Optional" icon="puzzle">
+
+[hy](https://archlinux.org/packages/extra/any/hy/)
+
+</Card>
+</CardGrid>
+
+There is no denying it, python is one of the most popular programming languages.
+And although I hate the syntax until the day I die (come at me, but indentation as syntax is a mistake),
+the shier amount of packages, tools, libraries, APIs, yada yada, makes it extremely flexible and versatile.
+
+> A jack of all trades is a master of none, but often times better than a master of one.
+
+or as I call it in German
+
+> Die Eierlegende Wollmilchsau
+
+<Aside>
+
+For example for generating 3D models programmatically,
+[CadQuery](https://github.com/CadQuery/cadquery?tab=readme-ov-file) is the most viable contender for me,
+especially considering I don't want to suffer from [OpenSCAD](https://openscad.org) induced vomiting.
+
+</Aside>
+
+Not giving up on my lispy dreams though, I'm trying out [Hy](https://hylang.org) here and there, too.
+
+## Setup
+
+Normally installing python is as simple as installing the package.
+
+### System Packages vs. pip
+
+Installing packages globally through `pip` isn't the most optimal thing,
+especially when using it in a development environment.
+
+It is [generally preferred](https://wiki.archlinux.org/title/Python#Arch_Repositories) to install the specific package through the official repositories or AUR,
+where the package name often follows the `python-<package_name>` scheme.
+
+### miniforge
+
+Another way is to utilize virtual environments.
+
+I personally prefer using [miniforge](https://github.com/conda-forge/miniforge), which provides the `conda` and `mamba` commands, among others.
+
+- [python-conda](https://aur.archlinux.org/packages/python-conda/) is too bloated for me
+- [miniconda3](https://aur.archlinux.org/packages/miniconda3/) uses the _Anaconda Inc._ channel
+
+I prefer the community supported `conda-forge` channel, though, which miniforge uses by default and exclusively.
+Furthermore, miniforge is installed in userspace, so it marks a clear separation of a virtual environment to the system installation.
+
+<Steps>
+
+1.  Download the latest installer script from the [download page](https://github.com/conda-forge/miniforge/releases/latest),
+    or using your preferred shell
+
+    <Tabs syncKey="miniforge-install">
+
+    <TabItem label="nushell">
+
+    ```nushell title="~" frame="terminal"
+    wget -O Miniforge3.sh $"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-(uname | get kernel-name)-(uname | get machine).sh"
+    ```
+
+    </TabItem>
+
+    <TabItem label="bash">
+
+    ```bash title="~" frame="terminal"
+    wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+2.  Run the script through `bash`
+
+    ```sh title="~" frame="terminal"
+    bash Miniforge3.sh
+    ```
+
+3.  Choose **no** when prompted whether you want to update your shell configuration or not.
+
+4.  Add miniforge's `bin` directory to your `$PATH`
+
+    ```bash title="~/.bashrc" ins={1} "$HOME/miniforge3/bin"
+    export PATH="$HOME/miniforge3/bin:$PATH"
+
+    ```
+
+5.  Close and reopen WSL (so the `.bashrc` gets sourced), or temporarily add miniforge to you path
+
+    ```nu
+    $env.PATH = ($env.PATH | append $"($env.HOME)/miniforge3/bin")
+    ```
+
+6.  Make sure the conda plugin for `nu` works correctly
+
+    ```sh title="~" frame="terminal"
+    conda activate
+    ```
+
+7.  Remove the installation script
+
+    ```sh title="~" frame="terminal"
+    rm Miniforge3.sh
+    ```
+
+</Steps>
+
+Now when you want to activate an environment, you can simply use `conda activate`.
