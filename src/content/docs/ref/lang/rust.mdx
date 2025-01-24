@@ -2,7 +2,13 @@
 title: Rust
 ---
 
-import { Aside, Card, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <Card title="Required" icon="puzzle">
 
@@ -36,8 +42,24 @@ in order to be able to install various toolchains, components, etc.
 
 4.  Add `cargo`'s `.bin` directory to your `$PATH`
 
+    <Tabs syncKey="shell">
+
+    <TabItem label="Xonsh">
+
+    ```python title="~/.config/xonsh/env.xsh" ins={1} "~/.cargo/bin"
+    $PATH.prepend("~/.cargo/bin")
+    ```
+
+    </TabItem>
+
+    <TabItem label="Nushell">
+
     ```bash title="~/.bashrc" ins={1} "$HOME/.cargo/bin"
     export PATH="$HOME/.cargo/bin:$PATH"
     ```
+
+    </TabItem>
+
+    </Tabs>
 
 </Steps>

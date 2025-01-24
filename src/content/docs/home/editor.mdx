@@ -2,7 +2,7 @@
 title: Editor
 ---
 
-import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+import { Aside, Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
 
 <CardGrid>
 <Card title="Required" icon="puzzle">
@@ -11,11 +11,11 @@ import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
 [wget](https://archlinux.org/packages/extra/x86_64/wget/)
 [fd](https://archlinux.org/packages/extra/x86_64/fd/)
 [ripgrep](https://archlinux.org/packages/extra/x86_64/ripgrep/)
+[python](https://archlinux.org/packages/core/x86_64/python/)
+[python-pip](https://archlinux.org/packages/extra/any/python-pip/)
+[python-neovim](https://archlinux.org/packages/extra/any/python-pynvim/)
 [nodejs](https://archlinux.org/packages/extra/x86_64/nodejs/)
 [npm](https://archlinux.org/packages/extra/x86_64/npm/)
-[python](https://archlinux.org/packages/core/x86_64/python/)
-[python-neovim](https://archlinux.org/packages/extra/any/python-pynvim/)
-[python-pip](https://archlinux.org/packages/extra/any/python-pip/)
 
 </Card>
 <Card title="Optional" icon="puzzle">
@@ -49,6 +49,45 @@ It is always a good idea to have
 but with my Neovim config it's even more important,
 as [Telescope](https://github.com/nvim-telescope/telescope.nvim) and other plugins make heavy use of them.
 
+## Additional tools
+
+<CardGrid stagger="true">
+
+<LinkCard
+  title="NodeJS"
+  href="ref/lang/nodejs"
+  description="Some LSPs require node. Installing it now will make sure WSL doesn't pick up a Windows node/npm executable."
+/>
+
+<LinkCard
+  title="Python"
+  href="ref/lang/python"
+  description="Some plugins require Python 3, so we're also going to install that."
+/>
+
+<LinkCard
+  title="Lua"
+  href="ref/lang/lua"
+  description="If we want to edit the Neovim config, we also need tools for Lua, namely `luarocks`."
+/>
+
+<Card title="Tree-sitter">
+
+As my Neovim config also includes [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) support,
+you need to have some kind of C/C++ compiler available.
+Normally Arch Linux on WSL2 should come with `gcc`.
+The `tree-sitter` binary isn't required normally, but it's nice to have available just in case.
+
+</Card>
+
+<Card title="lazyjj">
+
+As I use `jj`, I also want to install `lazyjj`, as it provides some integration for AstroNvim.
+
+</Card>
+
+</CardGrid>
+
 ## Clipboard integration
 
 For Neovim's clipboard integration, you kind of have to decide whether or not you want native clipboard integration with Wayland/X11.
@@ -78,27 +117,12 @@ as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
 </Card>
 </CardGrid>
 
-## Tree-sitter
+<Aside type="caution">
 
-As my Neovim config also includes [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) support,
-you need to have some kind of C/C++ compiler available.
-Normally Arch Linux on WSL2 should come with `gcc`.
-The `tree-sitter` binary isn't required normally, but it's nice to have available just in case.
+If you follow the steps for **Xonsh** in the next chapter, you might choose to remove the Windows `PATH` from Xonsh's `$PATH`.
 
-## NodeJS
+This causes you to loose access to the `win32yank.exe` executable, as well as `clip.exe` used by Xonsh's `prompt-toolkit`.
+You will therefore either need to use WezTerm from within WSL, together with the native option above,
+or manually add the aforementioned executables to Xonsh's `$PATH`.
 
-Also some LSPs, require `node` and `npm` for installing the language servers.
-By installing them now, before opening neovim, we make sure it doesn't accidentally pick up any Windows `npm`.
-Trust me, you'll never get back the day you spent troubleshooting some weird LSP errors due to `npm` not being WSL-native.
-
-## Python
-
-Some plugins require Python 3, so we're also going to install that.
-
-## Lua
-
-If we want to edit the Neovim config, we also need tools for Lua, namely `luarocks`.
-
-## Lazyjj
-
-As I use `jj`, I also want to install `lazyjj`, as it provides some integration for AstroNvim.
+</Aside>

@@ -56,7 +56,6 @@ export default defineConfig({
 												label: 'GnuPG',
 												items: [
 													'home/smartcard/gnupg',
-													'home/smartcard/gnupg/permission',
 													'home/smartcard/gnupg/missing',
 													'home/smartcard/gnupg/register',
 													'home/smartcard/gnupg/ssh',

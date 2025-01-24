@@ -1,52 +1,117 @@
 ---
-title: (Nu)Shell
+title: Shell
 ---
 
-import { Aside, Card, CardGrid } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <CardGrid>
 <Card title="Required" icon="puzzle">
 
-[nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
+[xonsh](https://archlinux.org/packages/extra/any/xonsh/)
+[python-prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/)
 [carapace-bin](https://aur.archlinux.org/packages/carapace-bin)
 [starship](https://archlinux.org/packages/extra/x86_64/starship/)
 [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/)
+[eza](https://archlinux.org/packages/extra-testing/x86_64/eza/)
 
 </Card>
 <Card title="Optional" icon="puzzle">
 
+[python-pygments](https://archlinux.org/packages/extra/any/python-pygments/)
+[python-setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/)
 [zellij](https://archlinux.org/packages/extra/x86_64/zellij/)
+[nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
 
 </Card>
 </CardGrid>
 
 Before we proceed further, I will quickly install my shell next, so I don't go insane from using `bash`.
 Of course, you can use any shell you want.
-In my case, I'll be using [nushell](https://www.nushell.sh).
 
-I am using `nu` because of its nice functionality<sup>read: I use `rust` btw</sup>.
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+In this case, we'll be using [xonsh](https://xon.sh).
 
 <Aside>
 
-I also considered using [xonsh](https://xon.sh) (maybe also with [coconut](https://coconut-lang.org)) as my main shell,
-but bad `nvim` support forces me to stay with `nu` at the moment,
-despite me fixing the weird slowdown issues with _xonsh_ by removing all `/mnt/c` paths from `$PATH`.
+In my custom `~/.config/xonsh/rc.xsh`, which gets deployed by dotter,
+I source some additional files, if present, in the same directory (`~/.config/xonsh`).
 
+- `user.xsh` is supposed to extend the default init file (`rc.xsh`) with user or platform dependant code
+- `env.xsh` is supposed to mainly extend the `$PATH`, but also add any other custom environment variables
+- `alias.xsh` is supposed to add any custom aliases
+
+</Aside>
+
+<Aside type="tip">
+
+There are some [known slowdown issues](https://github.com/xonsh/xonsh/issues/3895) with _xonsh_.
 For a UNIX system, all Windows files (`/mnt/c`) have the executable bit set,
 so when WSL appends the Windows paths to `$PATH`, like e.g. `C:\Windows\System32`,
 `xonsh` thinks they're all executables.
 In reality, only `.exe`s are executable but `xonsh` isn't interested in that fact,
 causing massive slowdowns and hiccups, especially when using `prompt-toolkit`.
 
+You can mitigate this issue by
+
+- manually removing all `/mnt/c` paths from `$PATH` in the Xonsh init file
+
+  ```python title="~/.config/xonsh/user.xsh" ins={1} "/mnt/c"
+  [$PATH.remove(path) for path in $PATH.paths if path.startswith("/mnt/c/")]
+  ```
+
+  (the `user.xsh` file gets loaded by my Xonsh `rc.xsh` file)
+
+- disabling the addition of the Windows `PATH` for this WSL distribution
+
+  ```config title="/etc/wsl.conf" ins={1-2} "/mnt/c"
+  [Interop]
+  appendWindowsPath = False
+  ```
+
+  In this case, you might need to readd wanted programs to Xonsh's `$PATH` in the `env.xsh` file.
+
 </Aside>
+
+</TabItem>
+
+<TabItem label="Nushell">
+
+In this case we're using `nu` <sup>Just say it: I use `rust` btw</sup>.
+
+</TabItem>
+
+</Tabs>
 
 ## Install missing tools
 
-To properly utilize my `nu` setup, I need to have the following tools available
+To properly utilize my shell setup, I need to have the following tools available
 
 - [carapace-bin](https://github.com/carapace-sh/carapace-bin/) (command completer),
 - [starship](https://starship.rs) (prompt),
 - [zoxide](https://github.com/ajeetdsouza/zoxide) (smarter `cd`)
+- [eza](https://github.com/eza-community/eza) (better `ls`)
+
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+I would definitely recommend installing [prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/),
+While you're at it, it shouldn't be too hard to install [pygments](https://archlinux.org/packages/extra/any/python-pygments/)
+and [setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/), too.
+
+</TabItem>
+
+<TabItem label="Nushell">
 
 <Aside type="tip">
 
@@ -58,7 +123,21 @@ but I haven't really tried it out yet.
 
 </Aside>
 
+</TabItem>
+
+</Tabs>
+
 ## Special case for WezTerm
+
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+Nothing special to do for Xonsh, as far as I'm aware.
+
+</TabItem>
+
+<TabItem label="Nushell">
 
 I'm using the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
 There is a weird behaviour however with nushell, where a `\n` gets inserted above the prompt on every keystroke.
@@ -66,34 +145,34 @@ There is a weird behaviour however with nushell, where a `\n` gets inserted abov
 If you look inside `~/.config/nushell/config.nu`
 
 ```nu title=~/.config/nushell/config.nu '("wezterm_pane" not-in $env)' collapse={2-9, 17-27} showLineNumbers startLineNumber=240
-    shell_integration: {
-        # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
-        osc2: true
-        # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
-        osc7: true
-        # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
-        osc8: true
-        # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
-        osc9_9: false
-        # osc133 is several escapes invented by Final Term which include the supported ones below.
-        # 133;A - Mark prompt start
-        # 133;B - Mark prompt end
-        # 133;C - Mark pre-execution
-        # 133;D;exit - Mark execution finished with exit code
-        # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
-        osc133: ("WEZTERM_PANE" not-in $env)
-        # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
-        # 633;A - Mark prompt start
-        # 633;B - Mark prompt end
-        # 633;C - Mark pre-execution
-        # 633;D;exit - Mark execution finished with exit code
-        # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
-        # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
-        # and also helps with the run recent menu in vscode
-        osc633: true
-        # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
-        reset_application_mode: true
-    }
+shell_integration: {
+    # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
+    osc2: true
+    # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
+    osc7: true
+    # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
+    osc8: true
+    # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
+    osc9_9: false
+    # osc133 is several escapes invented by Final Term which include the supported ones below.
+    # 133;A - Mark prompt start
+    # 133;B - Mark prompt end
+    # 133;C - Mark pre-execution
+    # 133;D;exit - Mark execution finished with exit code
+    # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
+    osc133: ("WEZTERM_PANE" not-in $env)
+    # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
+    # 633;A - Mark prompt start
+    # 633;B - Mark prompt end
+    # 633;C - Mark pre-execution
+    # 633;D;exit - Mark execution finished with exit code
+    # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
+    # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
+    # and also helps with the run recent menu in vscode
+    osc633: true
+    # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
+    reset_application_mode: true
+}
 ```
 
 `osc133` is disabled while using WezTerm, mitigating the aformentioned issue.
@@ -113,7 +192,35 @@ but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:A
 
 </Aside>
 
+</TabItem>
+
+</Tabs>
+
 ## Set it as default
+
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+<Steps>
+
+1.  Make sure that `xonsh` is listed in `/etc/shells` (or add it)
+
+    ```txt title=/etc/shells wrap {1}
+    /usr/bin/xonsh
+    ```
+
+2.  Set your login shell
+
+    ```sh
+    chsh -s /usr/bin/xonsh
+    ```
+
+</Steps>
+
+</TabItem>
+
+<TabItem label="Nushell">
 
 If you remember correctly, we set the login shell to `bash` when creating the custom user,
 so you might wonder why we didn't directly set it to `nu`.
@@ -129,3 +236,7 @@ if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${B
   exec nu
 fi
 ```
+
+</TabItem>
+
+</Tabs>

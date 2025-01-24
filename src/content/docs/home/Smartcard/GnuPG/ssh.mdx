@@ -2,21 +2,47 @@
 title: SSH
 ---
 
-import { Aside, Card, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 As I'm almost exclusively using `gpg-agent` for SSH (except some cases where I use FIDO2 and resident keys),
 as a substitute for `ssh-agent`, I have to set it up, so other applications can connect to it.
 
 For that we mainly have to `unset` `SSH_AGENT_PID` and `set` `SSH_AUTH_SOCK`.
-This is best done in our `~/.bashrc`
+This is best done in our appropriate init file
 
-```sh title=~/.bashrc ins={1,3-5}
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+```python title=~/.config/xonsh/user.xsh ins={1-2,4-5}
+if "SSH_AGENT_PID" in ${...}:
+    del $SSH_AGENT_PID
+
+if ($gnupg_SSH_AUTH_SOCK_by if "gnupg_SSH_AUTH_SOCK_by" in ${...} else 0) != os.getpid():
+    $SSH_AUTH_SOCK = $(gpgconf --list-dirs agent-ssh-socket)
+```
+
+</TabItem>
+
+<TabItem label="Nushell">
+
+```bash title=~/.bashrc ins={1,3-5}
 unset SSH_AGENT_PID
 
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 ```
+
+</TabItem>
+
+</Tabs>
 
 <Aside type="tip">
 

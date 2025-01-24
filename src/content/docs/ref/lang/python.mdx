@@ -73,20 +73,20 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 1.  Download the latest installer script from the [download page](https://github.com/conda-forge/miniforge/releases/latest),
     or using your preferred shell
 
-    <Tabs syncKey="miniforge-install">
+    <Tabs syncKey="shell">
+
+    <TabItem label="Xonsh">
+
+    ```python title="~" frame="terminal"
+    wget -O Miniforge3.sh @("https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-" + $(uname) + "-" + $(uname -m) + ".sh")
+    ```
+
+    </TabItem>
 
     <TabItem label="nushell">
 
     ```nushell title="~" frame="terminal"
     wget -O Miniforge3.sh $"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-(uname | get kernel-name)-(uname | get machine).sh"
-    ```
-
-    </TabItem>
-
-    <TabItem label="bash">
-
-    ```bash title="~" frame="terminal"
-    wget -O Miniforge3.sh "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
     ```
 
     </TabItem>
@@ -103,22 +103,71 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
 4.  Add miniforge's `bin` directory to your `$PATH`
 
-    ```bash title="~/.bashrc" ins={1} "$HOME/miniforge3/bin"
-    export PATH="$HOME/miniforge3/bin:$PATH"
+    <Tabs syncKey="shell">
 
+    <TabItem label="Xonsh">
+
+    ```python title="~/.config/xonsh/env.xsh" ins={1} "~/miniforge3/bin"
+    $PATH.prepend("~/miniforge3/bin")
     ```
 
-5.  Close and reopen WSL (so the `.bashrc` gets sourced), or temporarily add miniforge to you path
+    </TabItem>
+
+    <TabItem label="Nushell">
+
+    ```bash title="~/.bashrc" ins={1} "$HOME/miniforge3/bin"
+    export PATH="$HOME/miniforge3/bin:$PATH"
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+5.  Close and reopen WSL (so the init file gets sourced), or temporarily add miniforge to you path
+
+    <Tabs syncKey="shell">
+
+    <TabItem label="Xonsh">
+
+    ```python
+    $PATH.prepend("~/miniforge3/bin")
+    ```
+
+    </TabItem>
+
+    <TabItem label="Nushell">
 
     ```nu
     $env.PATH = ($env.PATH | append $"($env.HOME)/miniforge3/bin")
     ```
 
-6.  Make sure the conda plugin for `nu` works correctly
+    </TabItem>
+
+    </Tabs>
+
+6.  <Tabs syncKey="shell">
+
+    <TabItem label="Xonsh">
+
+    Init conda
+
+    ```sh title="~" frame="terminal"
+    conda init
+    ```
+
+    </TabItem>
+
+    <TabItem label="Nushell">
+
+    Make sure the conda plugin for `nu` works correctly
 
     ```sh title="~" frame="terminal"
     conda activate
     ```
+
+    </TabItem>
+
+    </Tabs>
 
 7.  Remove the installation script
 
