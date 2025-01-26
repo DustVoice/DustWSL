@@ -2,7 +2,13 @@
 title: ArchWSL
 ---
 
-import { Aside, Badge, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Badge,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <Aside>
 
@@ -94,20 +100,20 @@ You can update your mirrorlist with your nearest mirrors.
 
 <Steps>
 
-1. Backup your original mirrorlist.
+1.  Backup your original mirrorlist.
 
-   ```sh
-   sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-   ```
+    ```sh
+    sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    ```
 
-2. Generate a mirrorlist and save it to `/etc/pacman.d/mirrorlist`
+2.  Generate a mirrorlist and save it to `/etc/pacman.d/mirrorlist`
 
-   ```sh
-   curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
-   | sudo tee /etc/pacman.d/mirrorlist
-   ```
+    ```sh
+    curl -s "https://archlinux.org/mirrorlist/?country=DE&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+    | sudo tee /etc/pacman.d/mirrorlist
+    ```
 
-3. Uncomment desired lines in `/etc/pacman.d/mirrorlist` and move them to the top
+3.  Uncomment desired lines in `/etc/pacman.d/mirrorlist` and move them to the top
 
 </Steps>
 
@@ -144,26 +150,48 @@ To make WSL proxy-aware, I needed to
 
 <Steps>
 
-1. Add the exports to the `~/.bashrc` with
+1.  Add the exports to the `~/.bashrc` with
 
-   ```bash title="~/.bashrc" ins={1-3}
-   export http_proxy=http://<hostname>:<port>
-   export https_proxy=$http_proxy
-   export ftp_proxy=$http_proxy
-   ```
+    ```bash title="~/.bashrc" ins={1-3} "<hostname>" "<port>"
+    export http_proxy=http://<hostname>:<port>
+    export https_proxy=$http_proxy
+    export ftp_proxy=$http_proxy
+    ```
 
-2. Source it
+    <Tabs syncKey="shell">
 
-   ```sh
-   source ~/.bashrc
-   ```
+    <TabItem label="Xonsh">
 
-3. Allow `sudo` to pass these environment variables through by
-   setting the `env_keep` property in `/etc/sudoers.d/proxy`
+    Preemptively add the environment variables to `~/.config/xonsh/env.xsh`
 
-   ```txt title="/etc/sudoers.d/proxy" ins={1}
-   Defaults env_keep += "http_proxy https_proxy ftp_proxy"
-   ```
+    ```python title="~/.config/xonsh/env.xsh" ins={1-3} "<hostname>" "<port>"
+    $http_proxy = "http://<hostname>:<port>"
+    $https_proxy = $http_proxy
+    $ftp_proxy = $http_proxy
+    ```
+
+    </TabItem>
+
+    <TabItem label="Nushell">
+
+    Nothing more to do, as nushell will get invoked through `~/.bashrc`
+
+    </TabItem>
+
+    </Tabs>
+
+2.  Source it
+
+    ```sh
+    source ~/.bashrc
+    ```
+
+3.  Allow `sudo` to pass these environment variables through by
+    setting the `env_keep` property in `/etc/sudoers.d/proxy`
+
+    ```txt title="/etc/sudoers.d/proxy" ins={1}
+    Defaults env_keep += "http_proxy https_proxy ftp_proxy"
+    ```
 
 </Steps>
 

@@ -2,7 +2,14 @@
 title: Overview
 ---
 
-import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <CardGrid>
 
@@ -36,10 +43,27 @@ As we use ArchWSL, we have to setup the correct symlinks though.
 
 1.  The environment variables should already be _automagically_ setup to the correct values at this point.
 
+    <Tabs syncKey="shell">
+
+    <TabItem label="Xonsh">
+
+    ```python
+    $WAYLAND_DISPLAY = 'wayland-0'
+    $DISPLAY = ':0'
+    ```
+
+    </TabItem>
+
+    <TabItem label="Nushell">
+
     ```nu
     $env.WAYLAND_DISPLAY = 'wayland-0'
     $env.DISPLAY = ':0'
     ```
+
+    </TabItem>
+
+    </Tabs>
 
 2.  Everything we need, should already be in `/mnt/wslg`, namely `runtime-dir` and `.X11-unix`
 

@@ -99,7 +99,7 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
     bash Miniforge3.sh
     ```
 
-3.  Choose **no** when prompted whether you want to update your shell configuration or not.
+3.  Choose **no** when prompted whether you want to update your shell configuration or not (doesn't work for nushell).
 
 4.  Add miniforge's `bin` directory to your `$PATH`
 
@@ -155,6 +155,14 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
     conda init
     ```
 
+    <Aside>
+
+    This will write the `conda init` specific code to `~/.xonshrc`.
+    The `~/.config/xonsh/rc.xsh` included with my dotfiles takes precedence over it,
+    but my custom config sources `~/.xonshrc` so conda can effortlessly modify the file as needed.
+
+    </Aside>
+
     </TabItem>
 
     <TabItem label="Nushell">
@@ -177,4 +185,24 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
 </Steps>
 
-Now when you want to activate an environment, you can simply use `conda activate`.
+Now when you want to activate an environment, you can simply use
+
+<Tabs syncKey="shell">
+
+<TabItem label="Xonsh">
+
+```sh "<name>"
+conda activate <name>
+```
+
+</TabItem>
+
+<TabItem label="Nushell">
+
+```sh "<name>"
+conda activate <name>
+```
+
+</TabItem>
+
+</Tabs>
