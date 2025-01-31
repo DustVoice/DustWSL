@@ -6,6 +6,7 @@ import {
   Aside,
   Card,
   CardGrid,
+  FileTree,
   Steps,
   Tabs,
   TabItem,
@@ -46,14 +47,27 @@ In this case, we'll be using [xonsh](https://xon.sh).
 In my custom `~/.config/xonsh/rc.xsh`, which gets deployed by dotter,
 I source some additional files, if present, in the same directory (`~/.config/xonsh`).
 
-- `user.xsh` is supposed to extend the default init file (`rc.xsh`) with user or platform dependant code
-- `env.xsh` is supposed to mainly extend the `$PATH`, but also add any other custom environment variables, for examplefw:w
+<FileTree>
 
-  ```python title="~/.config/xonsh/env.xsh" ins={1} "..."
-  [$PATH.prepend(path) for path in ["~/.local/bin", ...]]
-  ```
+- ~
+  - .config/xonsh
+    - **alias.xsh** Custom **aliases**
+    - **env.xsh** **$PATH** / other env-vars
+    - rc.xsh Main **config** file _(managed by dotfiles)_
+    - **user.xsh** Custom **code** _(not managed by dotfiles)_
+  - .xonshrc Managed by **conda init**
 
-- `alias.xsh` is supposed to add any custom aliases
+</FileTree>
+
+<Aside type="tip">
+
+A good code snippet for prepending multiple items, as `$PATH.extend([...])` appends the items, would be
+
+```python title="~/.config/xonsh/env.xsh" ins={1} "..."
+[$PATH.prepend(path) for path in ["~/.local/bin", ...]]
+```
+
+</Aside>
 
 </Aside>
 
