@@ -105,5 +105,7 @@ export default defineConfig({
 			},
 		}),
 	],
-	site: 'https://dustvoice.github.io/DustWSL',
+	site: 'https://dustvoice.github.io',
+	base: '/DustWSL/',
+	trailingSlash: 'ignore',
 });
