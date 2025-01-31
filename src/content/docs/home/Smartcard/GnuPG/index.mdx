@@ -2,7 +2,20 @@
 title: Overview
 ---
 
-import { Aside, Tabs, TabItem, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  Tabs,
+  TabItem,
+  Steps,
+} from "@astrojs/starlight/components";
+
+<Card title="Required" icon="puzzle">
+
+[pinentry](https://archlinux.org/packages/core/x86_64/pinentry/)
+[gtk3](https://archlinux.org/packages/extra/x86_64/gtk3/)
+
+</Card>
 
 To now actually use the YubiKey, I need to make sure it works with `gpg`.
 However we are presented with a couple issues, as explained in the following parts.
@@ -57,5 +70,22 @@ To fix it
     ```
 
 </Steps>
+
+</Aside>
+
+<Aside type="caution">
+
+I experienced some problems, especially trying to use `ssh` with `gpg-agent`, in the following chapters.
+`gpg` can almost always be fixed with a
+
+```sh
+gpg-connect-agent updatestartuptty /bye
+```
+
+but `ssh` still seems to be trying to use a GUI pinentry (e.g. `pinentry-gtk`),
+probably because the `DISPLAY` environment variables are configured in WSL by default.
+`pinentry-gtk` is disfunctional at this point, though, as it needs the [gtk3](https://archlinux.org/packages/extra/x86_64/gtk3/) dependency.
+
+So make sure, you follow the [GUI]("/ref/gui") chapter, to make sure WSLg works correctly, and install the GTK dependency
 
 </Aside>
