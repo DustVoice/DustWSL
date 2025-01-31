@@ -19,13 +19,13 @@ export default defineConfig({
 				starlightSidebarTopics([
 					{
 						label: 'Introduction',
-						link: 'intro/syntax',
+						link: 'intro/syntax/',
 						icon: 'rocket',
 						items: ['intro/syntax', 'intro/tooling'],
 					},
 					{
 						label: 'Guides',
-						link: 'pre',
+						link: 'pre/',
 						icon: 'open-book',
 						items: [
 							{
@@ -69,7 +69,7 @@ export default defineConfig({
 					},
 					{
 						label: 'References',
-						link: 'ref',
+						link: 'ref/',
 						icon: 'information',
 						items: [
 							'ref',
@@ -107,5 +107,5 @@ export default defineConfig({
 	],
 	site: 'https://dustvoice.github.io',
 	base: '/DustWSL/',
-	trailingSlash: 'ignore',
+	trailingSlash: 'always',
 });
