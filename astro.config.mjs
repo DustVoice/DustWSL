@@ -84,6 +84,7 @@ export default defineConfig({
 								items: [
 									{
 										label: 'Languages',
+										collapsed: true,
 										autogenerate: {
 											directory: 'ref/lang',
 										},
