@@ -14,15 +14,31 @@ Select the one corresponding to the shell you wanna use.
 
 <Tabs syncKey="shell">
 
-<TabItem label="Xonsh">
+<TabItem label="Nushell">
 
-I currently use `xonsh`. Follow these tabs, if you want to use `xonsh`, too.
+I use `nu`.
+
+Follow these tabs, if you want to use `nu`, too.
 
 </TabItem>
 
-<TabItem label="Nushell">
+<TabItem label="Xonsh">
 
-I previously used `nu`. Follow these tabs, if you want to use `nu`, too.
+I previously tried `xonsh`, although I noticed several things that led me back to Nushell:
+
+In theory, it is nice to be inside a python-esque environment.
+In practice, though, I can't really use `conda` environments, as I install it as a system package,
+neither did it work well with `nvim` and/or the [conjure](https://github.com/Olical/conjure) plugin.
+
+I found myself missing the ease of `nu`'s `ls | sort-by modified` syntax.
+
+Furthermore, I'm at a point where I thing it's better to transition from a quick and dirty `.nu` script to an entirely different language,
+be it Python, Babashka/Clojure, or similar,
+than to struggle with the limitations of a Python superset in the form of `.xsh` files.
+
+Bad editor support, no good REPL workflow and many more nuisances made me switch back.
+
+Follow these tabs, if you want to use `xonsh` anyways.
 
 </TabItem>
 

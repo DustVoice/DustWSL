@@ -27,6 +27,12 @@ by simply adding the following lines to the appropriate init file
 
 <Tabs syncKey="shell">
 
+<TabItem label="Nushell">
+
+Nothing to do, since it's already included in my dotfile's `~/.bash_profile`.
+
+</TabItem>
+
 <TabItem label="Xonsh">
 
 ```py title=~/.config/xonsh/user.xsh ins={1-2}
@@ -36,40 +42,7 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 
 </TabItem>
 
-<TabItem label="Nushell">
-
-```bash title=~/.bashrc ins={1-2}
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
-```
-
-</TabItem>
-
 </Tabs>
-
-</Aside>
-
-<Aside type="caution" title="Wrong permissions">
-
-Unfortunately, `dotter` doesn't seem to set up the permissions correctly.
-This is an issue and `gpg` will gladly and loudly complain about it.
-
-To fix it
-
-<Steps>
-
-1.  Make sure you are indeed the owner of `~/.gnupg`.
-
-2.  After that simply correct the wrong permissions
-
-    ```sh
-    chmod 700 ~/.gnupg
-    chmod 600 ~/.gnupg/gpg.conf
-    chmod 600 ~/.gnupg/gpg-agent.conf
-    chmod 600 ~/.gnupg/sshcontrol
-    ```
-
-</Steps>
 
 </Aside>
 

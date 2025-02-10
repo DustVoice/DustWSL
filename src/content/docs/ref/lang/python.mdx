@@ -75,18 +75,18 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
     <Tabs syncKey="shell">
 
-    <TabItem label="Xonsh">
+    <TabItem label="Nushell">
 
-    ```python title="~" frame="terminal"
-    wget -O Miniforge3.sh @("https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-" + $(uname) + "-" + $(uname -m) + ".sh")
+    ```nushell title="~" frame="terminal"
+    wget -O Miniforge3.sh $"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-(uname | get kernel-name)-(uname | get machine).sh"
     ```
 
     </TabItem>
 
-    <TabItem label="nushell">
+    <TabItem label="Xonsh">
 
-    ```nushell title="~" frame="terminal"
-    wget -O Miniforge3.sh $"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-(uname | get kernel-name)-(uname | get machine).sh"
+    ```python title="~" frame="terminal"
+    wget -O Miniforge3.sh @("https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-" + $(uname) + "-" + $(uname -m) + ".sh")
     ```
 
     </TabItem>
@@ -105,6 +105,16 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
     <Tabs syncKey="shell">
 
+    <TabItem label="Nushell">
+
+    ```nu title="~/.config/nushell/user.nu" ins={3} "~/miniforge3/bin"
+    use std/util "path add"
+
+    path add "~/miniforge3/bin"
+    ```
+
+    </TabItem>
+
     <TabItem label="Xonsh">
 
     ```python title="~/.config/xonsh/env.xsh" ins={1} "~/miniforge3/bin"
@@ -113,39 +123,22 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
     </TabItem>
 
-    <TabItem label="Nushell">
-
-    ```bash title="~/.bashrc" ins={1} "$HOME/miniforge3/bin"
-    export PATH="$HOME/miniforge3/bin:$PATH"
-    ```
-
-    </TabItem>
-
     </Tabs>
 
-5.  Close and reopen WSL (so the init file gets sourced), or temporarily add miniforge to you path
-
-    <Tabs syncKey="shell">
-
-    <TabItem label="Xonsh">
-
-    ```python
-    $PATH.prepend("~/miniforge3/bin")
-    ```
-
-    </TabItem>
-
-    <TabItem label="Nushell">
-
-    ```nu
-    $env.PATH = ($env.PATH | append $"($env.HOME)/miniforge3/bin")
-    ```
-
-    </TabItem>
-
-    </Tabs>
+5.  Close and reopen your shell
 
 6.  <Tabs syncKey="shell">
+
+    <TabItem label="Nushell">
+
+    Make sure the conda plugin for `nu` works correctly
+    (should be setup with my dotfiles out of the box)
+
+    ```sh title="~" frame="terminal"
+    conda activate
+    ```
+
+    </TabItem>
 
     <TabItem label="Xonsh">
 
@@ -165,16 +158,6 @@ Furthermore, miniforge is installed in userspace, so it marks a clear separation
 
     </TabItem>
 
-    <TabItem label="Nushell">
-
-    Make sure the conda plugin for `nu` works correctly
-
-    ```sh title="~" frame="terminal"
-    conda activate
-    ```
-
-    </TabItem>
-
     </Tabs>
 
 7.  Remove the installation script
@@ -189,7 +172,7 @@ Now when you want to activate an environment, you can simply use
 
 <Tabs syncKey="shell">
 
-<TabItem label="Xonsh">
+<TabItem label="Nushell">
 
 ```sh "<name>"
 conda activate <name>
@@ -197,7 +180,7 @@ conda activate <name>
 
 </TabItem>
 
-<TabItem label="Nushell">
+<TabItem label="Xonsh">
 
 ```sh "<name>"
 conda activate <name>

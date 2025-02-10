@@ -127,24 +127,4 @@ as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
 
 If you follow the steps for **Xonsh** in the next chapter, you might choose to remove the Windows `PATH` from Xonsh's `$PATH`.
 
-This causes you to loose access to the `win32yank.exe` executable, as well as `clip.exe` used by Xonsh's `prompt-toolkit`.
-You will therefore either need to use WezTerm from within WSL, together with the native option above,
-or manually add the aforementioned executables to Xonsh's `$PATH`.
-
-<Steps>
-
-1.  Add `win32yank.exe` to the `env.xsh` file
-
-    ```python title="~/.config/xonsh/env.xsh" ins={1,3} "<username>"
-    windows = ["/mnt/c/Users/<username>/scoop/apps/win32yank/current"]
-
-    $PATH.extend(windows)
-    ```
-
-2.  ```sh
-    sudo ln -s /mnt/c/Windows/System32/clip.exe /usr/bin/clip.exe
-    ```
-
-</Steps>
-
 </Aside>

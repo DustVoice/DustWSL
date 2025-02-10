@@ -15,20 +15,21 @@ import {
 <CardGrid>
 <Card title="Required" icon="puzzle">
 
-[xonsh](https://archlinux.org/packages/extra/any/xonsh/)
-[python-prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/)
+[nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
+[pueue](https://archlinux.org/packages/extra/x86_64/pueue/)
 [carapace-bin](https://aur.archlinux.org/packages/carapace-bin)
 [starship](https://archlinux.org/packages/extra/x86_64/starship/)
 [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/)
-[eza](https://archlinux.org/packages/extra-testing/x86_64/eza/)
 
 </Card>
 <Card title="Optional" icon="puzzle">
 
+[zellij](https://archlinux.org/packages/extra/x86_64/zellij/)
+[eza](https://archlinux.org/packages/extra-testing/x86_64/eza/)
+[xonsh](https://archlinux.org/packages/extra/any/xonsh/)
+[python-prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/)
 [python-pygments](https://archlinux.org/packages/extra/any/python-pygments/)
 [python-setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/)
-[zellij](https://archlinux.org/packages/extra/x86_64/zellij/)
-[nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
 
 </Card>
 </CardGrid>
@@ -37,6 +38,12 @@ Before we proceed further, I will quickly install my shell next, so I don't go i
 Of course, you can use any shell you want.
 
 <Tabs syncKey="shell">
+
+<TabItem label="Nushell">
+
+In this case we're using `nu` <sup>Just say it: I use `rust` btw</sup>.
+
+</TabItem>
 
 <TabItem label="Xonsh">
 
@@ -97,15 +104,28 @@ You can mitigate this issue by
   appendWindowsPath = False
   ```
 
-  In this case, you might need to readd wanted programs to Xonsh's `$PATH` in the `env.xsh` file.
+This causes you to loose access to the `win32yank.exe` executable, however,
+as well as `clip.exe` used by Xonsh's `prompt-toolkit`.
+You will therefore either need to use Wezterm from within WSL, together with the native option above,
+or manually add the aforementioned executables to Xonsh's `$PATH`.
+
+<Steps>
+
+1.  Add `win32yank.exe` to the `env.xsh` file
+
+    ```python title="~/.config/xonsh/env.xsh" ins={1,3} "<username>"
+    windows = ["/mnt/c/Users/<username>/scoop/apps/win32yank/current"]
+
+    $PATH.extend(windows)
+    ```
+
+2.  ```sh
+    sudo ln -s /mnt/c/Windows/System32/clip.exe /usr/bin/clip.exe
+    ```
+
+</Steps>
 
 </Aside>
-
-</TabItem>
-
-<TabItem label="Nushell">
-
-In this case we're using `nu` <sup>Just say it: I use `rust` btw</sup>.
 
 </TabItem>
 
@@ -122,14 +142,6 @@ To properly utilize my shell setup, I need to have the following tools available
 
 <Tabs syncKey="shell">
 
-<TabItem label="Xonsh">
-
-I would definitely recommend installing [prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/),
-While you're at it, it shouldn't be too hard to install [pygments](https://archlinux.org/packages/extra/any/python-pygments/)
-and [setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/), too.
-
-</TabItem>
-
 <TabItem label="Nushell">
 
 <Aside type="tip">
@@ -137,10 +149,19 @@ and [setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctit
 As Nushell currently doesn't have a built-in solution for background tasks,
 I am personally often using [Zellij](https://zellij.dev).
 
-There is also [pueue](https://github.com/Nukesor/pueue) with [some level of integration](https://www.nushell.sh/book/background_task.html),
-but I haven't really tried it out yet.
+My dotfiles also integrate [pueue](https://github.com/Nukesor/pueue),
+utilizing [`task.nu`](https://github.com/nushell/nu_scripts/blob/main/modules/background_task/task.nu),
+according to the [official book](https://www.nushell.sh/book/background_task.html).
 
 </Aside>
+
+</TabItem>
+
+<TabItem label="Xonsh">
+
+I would definitely recommend installing [prompt_toolkit](https://archlinux.org/packages/extra/any/python-prompt_toolkit/),
+While you're at it, it shouldn't be too hard to install [pygments](https://archlinux.org/packages/extra/any/python-pygments/)
+and [setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/), too.
 
 </TabItem>
 
@@ -150,12 +171,6 @@ but I haven't really tried it out yet.
 
 <Tabs syncKey="shell">
 
-<TabItem label="Xonsh">
-
-Nothing special to do for Xonsh, as far as I'm aware.
-
-</TabItem>
-
 <TabItem label="Nushell">
 
 I'm using the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
@@ -163,53 +178,33 @@ There is a weird behaviour however with nushell, where a `\n` gets inserted abov
 
 If you look inside `~/.config/nushell/config.nu`
 
-```nu title=~/.config/nushell/config.nu '("wezterm_pane" not-in $env)' collapse={2-9, 17-27} showLineNumbers startLineNumber=240
-shell_integration: {
-    # osc2 abbreviates the path if in the home_dir, sets the tab/window title, shows the running command in the tab/window title
-    osc2: true
-    # osc7 is a way to communicate the path to the terminal, this is helpful for spawning new tabs in the same directory
-    osc7: true
-    # osc8 is also implemented as the deprecated setting ls.show_clickable_links, it shows clickable links in ls output if your terminal supports it. show_clickable_links is deprecated in favor of osc8
-    osc8: true
-    # osc9_9 is from ConEmu and is starting to get wider support. It's similar to osc7 in that it communicates the path to the terminal
-    osc9_9: false
-    # osc133 is several escapes invented by Final Term which include the supported ones below.
-    # 133;A - Mark prompt start
-    # 133;B - Mark prompt end
-    # 133;C - Mark pre-execution
-    # 133;D;exit - Mark execution finished with exit code
-    # This is used to enable terminals to know where the prompt is, the command is, where the command finishes, and where the output of the command is
-    osc133: ("WEZTERM_PANE" not-in $env)
-    # osc633 is closely related to osc133 but only exists in visual studio code (vscode) and supports their shell integration features
-    # 633;A - Mark prompt start
-    # 633;B - Mark prompt end
-    # 633;C - Mark pre-execution
-    # 633;D;exit - Mark execution finished with exit code
-    # 633;E - NOT IMPLEMENTED - Explicitly set the command line with an optional nonce
-    # 633;P;Cwd=<path> - Mark the current working directory and communicate it to the terminal
-    # and also helps with the run recent menu in vscode
-    osc633: true
-    # reset_application_mode is escape \x1b[?1l and was added to help ssh work better
-    reset_application_mode: true
-}
+```nu title=~/.config/nushell/config.nu '("WEZTERM_PANE" not-in $env)'
+$env.config.shell_integration.osc133 = ("WEZTERM_PANE" not-in $env)
 ```
 
 `osc133` is disabled while using WezTerm, mitigating the aformentioned issue.
 
 This works flawlessly in windows, but unfortunately `wezterm_pane` isn't automatically set within wsl.
 
-To _hack_ this, i just added an `export` to my `~/.bashrc`
+To _hack_ this, i just add an `export` to my `~/.bashrc`, which gets sourced by my dotfiles' `~/.bash_profile`
 
 ```sh ins={1} title=~/.bashrc
-export wezterm_pane=0
+export WEZTERM_PANE=0
 ```
 
 <Aside type="tip">
 
 You could theoretically install `wezterm` under WSL and use it that way,
-but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:Arch"`).
+but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:Arch"`) from Windows,
+as fullscreen isn't working correctly with Wayland and WSLg for me.
 
 </Aside>
+
+</TabItem>
+
+<TabItem label="Xonsh">
+
+Nothing special to do for Xonsh, as far as I'm aware.
 
 </TabItem>
 
@@ -218,6 +213,25 @@ but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:A
 ## Set it as default
 
 <Tabs syncKey="shell">
+
+<TabItem label="Nushell">
+
+If you remember correctly, we set the login shell to `bash` when creating the custom user,
+so you might wonder why we didn't directly set it to `nu`.
+
+Well nushell **isn't POSIX compliant**, and neither does it want to be.
+Therefore running `nu` as a login shell might not be the absolute best experience you'll ever have.
+
+Instead, I include a code snippet in my dotfile's `~/.bash_profile` that will let `nu` take over any _interactive_ shell,
+while scripts, etc. that expect a `POSIX` compliant shell can have their way.
+
+```bash title=~/.bash_profile "exec nu"
+if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${BASH_EXECUTION_STRING} ]] then
+  exec nu
+fi
+```
+
+</TabItem>
 
 <TabItem label="Xonsh">
 
@@ -236,25 +250,6 @@ but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:A
     ```
 
 </Steps>
-
-</TabItem>
-
-<TabItem label="Nushell">
-
-If you remember correctly, we set the login shell to `bash` when creating the custom user,
-so you might wonder why we didn't directly set it to `nu`.
-
-Well nushell **isn't POSIX compliant**, and neither does it want to be.
-Therefore running `nu` as a login shell might not be the absolute best experience you'll ever have.
-
-Instead, we populate the `.bashrc` with some scripting that will let `nu` take over any _interactive_ shell,
-while scripts, etc. that expect a `POSIX` compliant shell can have their way.
-
-```bash title=~/.bashrc wrap ins={1-4}
-if [[ $- == *i* && $(ps --no-header --pid $PPID --format comm) != "nu" && -z ${BASH_EXECUTION_STRING} ]] then
-  exec nu
-fi
-```
 
 </TabItem>
 

@@ -18,6 +18,12 @@ This is best done in our appropriate init file
 
 <Tabs syncKey="shell">
 
+<TabItem label="Nushell">
+
+Nothing to do, since it's already included in my dotfile's `~/.bash_profile`.
+
+</TabItem>
+
 <TabItem label="Xonsh">
 
 ```python title=~/.config/xonsh/user.xsh ins={1-2,4-5}
@@ -26,18 +32,6 @@ if "SSH_AGENT_PID" in ${...}:
 
 if ($gnupg_SSH_AUTH_SOCK_by if "gnupg_SSH_AUTH_SOCK_by" in ${...} else 0) != os.getpid():
     $SSH_AUTH_SOCK = $(gpgconf --list-dirs agent-ssh-socket)
-```
-
-</TabItem>
-
-<TabItem label="Nushell">
-
-```bash title=~/.bashrc ins={1,3-5}
-unset SSH_AGENT_PID
-
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
 ```
 
 </TabItem>
@@ -59,14 +53,46 @@ ssh -T git@github.com
 
 Now that SSH is working just fine, we can switch the remote of the dotfiles repo over to use SSH.
 
-```sh title=~/dotfiles
+<Tabs syncKey="vc">
+
+<TabItem label="native">
+
+```sh
+chezmoi git remote set-url origin git@github.com:DustVoice/dotfiles.git
+```
+
+</TabItem>
+
+<TabItem label="jujutsu">
+
+```sh title=~/.local/share/chezmoi
 jj git remote set-url origin git@github.com:DustVoice/dotfiles.git
 ```
 
+</TabItem>
+
+</Tabs>
+
 A simple
 
+<Tabs syncKey="vc">
+
+<TabItem label="native">
+
 ```sh
+chezmoi update
+```
+
+</TabItem>
+
+<TabItem label="jujutsu">
+
+```sh title=~/.local/share/chezmoi
 jj git fetch
 ```
+
+</TabItem>
+
+</Tabs>
 
 should now succeed without any issues.

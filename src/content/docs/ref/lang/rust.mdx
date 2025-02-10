@@ -44,6 +44,16 @@ in order to be able to install various toolchains, components, etc.
 
     <Tabs syncKey="shell">
 
+    <TabItem label="Nushell">
+
+    ```nu title="~/.config/nushell/user.nu" ins={3} "$env.CARGO_HOME" "bin"
+    use std/util "path add"
+
+    path add ($env.CARGO_HOME | path join "bin")
+    ```
+
+    </TabItem>
+
     <TabItem label="Xonsh">
 
     ```python title="~/.config/xonsh/env.xsh" ins={1} "~/.cargo/bin"
@@ -52,14 +62,8 @@ in order to be able to install various toolchains, components, etc.
 
     </TabItem>
 
-    <TabItem label="Nushell">
-
-    ```bash title="~/.bashrc" ins={1} "$HOME/.cargo/bin"
-    export PATH="$HOME/.cargo/bin:$PATH"
-    ```
-
-    </TabItem>
-
     </Tabs>
+
+5.  Restart your shell for the PATH change to take effect
 
 </Steps>

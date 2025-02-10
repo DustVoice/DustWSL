@@ -1,0 +1,125 @@
+---
+title: Dotfiles
+---
+
+import {
+  Aside,
+  Badge,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
+
+<CardGrid>
+<Card title="Optional" icon="puzzle">
+
+[chezmoi](https://archlinux.org/packages/extra/x86_64/chezmoi/)
+[git](https://archlinux.org/packages/extra/x86_64/git/)
+[jujutsu](https://archlinux.org/packages/extra/x86_64/jujutsu/)
+[cmake](https://archlinux.org/packages/extra/x86_64/cmake/)
+
+</Card>
+</CardGrid>
+
+To manage my dotfiles, I'm currently using [chezmoi](https://www.chezmoi.io).
+
+Before we can use the dotfiles we need to download them first, duh.
+
+<Tabs syncKey="vc">
+
+<TabItem label="native">
+
+It's literally one line (changing the argument to your GitHub username if you maintain a fork):
+
+```sh "DustVoice"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply DustVoice
+```
+
+<Aside type="tip">
+
+If you want to use chezmoi installed as a system package, instead of locally by this script
+
+<Steps>
+
+1. Install [chezmoi](https://archlinux.org/packages/extra/x86_64/chezmoi/)
+
+2. Init chezmoi and directly apply the changes (again changing the argument to your GitHub username if you maintain a fork)
+
+   ```sh "DustVoice"
+   chezmoi init DustVoice --apply
+   ```
+
+</Steps>
+
+</Aside>
+
+</TabItem>
+
+<TabItem label="jujutsu">
+
+I'm using [jj](https://github.com/martinvonz/jj) currently,
+and will therefore use it to clone and make changes to my dotfiles repository.
+
+This means we can't use an one-liner, however. Instead follow these steps
+
+<Steps>
+
+1.  Make sure the target directory exists
+
+    ```sh
+    mkdir -p ~/.local/share
+    ```
+
+2.  Clone the repository to `~/.local/share/chezmoi` (changing the URL to you GitHub username if you maintain a fork).
+
+    ```sh "DustVoice"
+    jj git clone --colocate https://github.com/DustVoice/dotfiles.git ~/.local/share/chezmoi
+    ```
+
+    <Aside>
+
+    Cloning the repository is first done using its `https` URL, as using `ssh` with my Yubikey requires my dotfiles to already be setup.
+    As circular dependencies are a **lot** of fun <sub>not</sub>, I will simply change the remote URL later to use `ssh`.
+
+    </Aside>
+
+3.  Initialize and apply the dotfiles
+
+    ```sh
+    chezmoi init --apply
+    ```
+
+4.  Create chezmoi's config file at `~/.config/chezmoi/chezmoi.toml`, changing the default `git pull` command to use `jj`.
+
+    ```toml title="~/.config/chezmoi/chezmoi.toml" ins={1-3} "nu"
+    [update]
+    command = "nu"
+    args = ["-c", "jj git fetch; jj rebase -d main@origin"]
+    ```
+
+    <Aside>
+
+    You can in also skip this step.
+    You can then simply do a `chezmoi cd` and run `jj` commands from within the repository, like you're used to and `exit` out once you're finished.
+
+    For that you probably want to make `nu` chezmoi's default `cd` command
+
+    ```toml title="~/.config/chezmoi/chezmoi.toml" ins={1-2} "nu"
+    [cd]
+    command = "nu"
+    ```
+
+    Also, if you're not planning to use `nu`shell like me, you might want to substitute the command according to your shell's syntax.
+
+    As the `jj` repository is initialized as a colocated repository,
+    `git pull`/`chezmoi update` would in theory work with `jj`, too, but you might need to update/rebase any changes afterwards.
+
+    </Aside>
+
+</Steps>
+
+</TabItem>
+
+</Tabs>

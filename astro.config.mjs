@@ -37,8 +37,7 @@ export default defineConfig({
 								items: [
 									'home',
 									'home/basic',
-									'home/dotpre',
-									'home/dotter',
+									'home/dotfiles',
 									'home/editor',
 									'home/shell',
 									'home/scripting',

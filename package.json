@@ -11,19 +11,19 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.1.5",
+    "@astrojs/react": "^4.2.0",
     "@astrojs/starlight": "^0.30.6",
-    "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/tailwind": "^5.1.5",
     "@astrojs/ts-plugin": "^1.10.4",
     "@expressive-code/plugin-collapsible-sections": "^0.38.3",
     "@expressive-code/plugin-line-numbers": "^0.38.3",
-    "astro": "^5.1.7",
+    "astro": "^5.2.5",
     "sharp": "^0.32.6",
     "starlight-sidebar-topics": "^0.3.0",
     "starlight-theme-catppuccin": "^2.0.0",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.17"
+    "@types/bun": "^1.2.2"
   }
 }

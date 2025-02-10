@@ -45,20 +45,20 @@ As we use ArchWSL, we have to setup the correct symlinks though.
 
     <Tabs syncKey="shell">
 
-    <TabItem label="Xonsh">
-
-    ```python
-    $WAYLAND_DISPLAY = 'wayland-0'
-    $DISPLAY = ':0'
-    ```
-
-    </TabItem>
-
     <TabItem label="Nushell">
 
     ```nu
     $env.WAYLAND_DISPLAY = 'wayland-0'
     $env.DISPLAY = ':0'
+    ```
+
+    </TabItem>
+
+    <TabItem label="Xonsh">
+
+    ```python
+    $WAYLAND_DISPLAY = 'wayland-0'
+    $DISPLAY = ':0'
     ```
 
     </TabItem>
