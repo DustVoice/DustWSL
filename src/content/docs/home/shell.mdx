@@ -106,7 +106,8 @@ You can mitigate this issue by
 
 This causes you to loose access to the `win32yank.exe` executable, however,
 as well as `clip.exe` used by Xonsh's `prompt-toolkit`.
-You will therefore either need to use Wezterm from within WSL, together with the native option above,
+
+You will therefore either need to use your terminal emulator from within WSL, together with the native option above,
 or manually add the aforementioned executables to Xonsh's `$PATH`.
 
 <Steps>
@@ -175,49 +176,6 @@ and [setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctit
 
 </Tabs>
 
-## Special case for WezTerm
-
-<Tabs syncKey="shell">
-
-<TabItem label="Nushell">
-
-I'm using the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
-There is a weird behaviour however with nushell, where a `\n` gets inserted above the prompt on every keystroke.
-
-If you look inside `~/.config/nushell/config.nu`
-
-```nu title=~/.config/nushell/config.nu '("WEZTERM_PANE" not-in $env)'
-$env.config.shell_integration.osc133 = ("WEZTERM_PANE" not-in $env)
-```
-
-`osc133` is disabled while using WezTerm, mitigating the aformentioned issue.
-
-This works flawlessly in windows, but unfortunately `wezterm_pane` isn't automatically set within wsl.
-
-To _hack_ this, i just add an `export` to my `~/.bashrc`, which gets sourced by my dotfiles' `~/.bash_profile`
-
-```sh ins={1} title=~/.bashrc
-export WEZTERM_PANE=0
-```
-
-<Aside type="tip">
-
-You could theoretically install `wezterm` under WSL and use it that way,
-but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:Arch"`) from Windows,
-as fullscreen isn't working correctly with Wayland and WSLg for me.
-
-</Aside>
-
-</TabItem>
-
-<TabItem label="Xonsh">
-
-Nothing special to do for Xonsh, as far as I'm aware.
-
-</TabItem>
-
-</Tabs>
-
 ## Set it as default
 
 <Tabs syncKey="shell">
@@ -258,6 +216,49 @@ fi
     ```
 
 </Steps>
+
+</TabItem>
+
+</Tabs>
+
+## Special case for WezTerm
+
+<Tabs syncKey="shell">
+
+<TabItem label="Nushell">
+
+I'm previously used the terminal emulator [WezTerm](https://wezfurlong.org/wezterm/index.html) to run WSL.
+There is a weird behaviour, however, with nushell, where a `\n` gets inserted above the prompt on every keystroke.
+
+If you look inside `~/.config/nushell/config.nu`
+
+```nu title=~/.config/nushell/config.nu '("WEZTERM_PANE" not-in $env)'
+$env.config.shell_integration.osc133 = ("WEZTERM_PANE" not-in $env)
+```
+
+`osc133` is disabled while using WezTerm, mitigating the aformentioned issue.
+
+This works flawlessly in windows, but unfortunately `wezterm_pane` isn't automatically set within wsl.
+
+To _hack_ this, i just add an `export` to my `~/.bashrc`, which gets sourced by my dotfiles' `~/.bash_profile`
+
+```sh ins={1} title=~/.bashrc
+export WEZTERM_PANE=0
+```
+
+<Aside type="tip">
+
+You could theoretically install `wezterm` under WSL and use it that way,
+but I prefer to launch WSL through Wezterm's domain funcionality (domain `"WSL:Arch"`) from Windows,
+as fullscreen isn't working correctly with Wayland and WSLg for me.
+
+</Aside>
+
+</TabItem>
+
+<TabItem label="Xonsh">
+
+Nothing special to do for Xonsh, as far as I'm aware.
 
 </TabItem>
 

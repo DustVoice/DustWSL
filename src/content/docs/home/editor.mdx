@@ -98,7 +98,14 @@ As I use `jj`, I also want to install `lazyjj`, as it provides some integration 
 
 For Neovim's clipboard integration, you kind of have to decide whether or not you want native clipboard integration with Wayland/X11.
 As a rough measure, you probably want clipboard integration over Windows if you use e.g. WezTerm installed on Windows to access WSL
-and you probably want native clipboard integration for Wayland/X11 if you use an installation of WezTerm from out of WSL.
+and you probably want native clipboard integration for Wayland/X11 if you use an installation of a terminal emulator from out of WSL.
+
+<Aside>
+
+This doesn't really seem to be the case anymore, as I currently use ghostty from within WSL (see the [GUI](/DustWSL/ref/gui) chapter),
+having no "native" solution installed, but rather win32yank on the Windows side, with it on my WSL `PATH` and copy/pasting works like a blast.
+
+</Aside>
 
 <CardGrid>
 <Card title="Clipboard via Windows">
