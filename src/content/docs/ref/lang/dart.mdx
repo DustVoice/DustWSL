@@ -1,0 +1,75 @@
+---
+title: Dart / Flutter
+---
+
+import { Card, Steps, Tabs, TabItem } from "@astrojs/starlight/components";
+
+<Card title="Required" icon="puzzle">
+
+[flutter-bin](https://aur.archlinux.org/packages/flutter-bin)
+[android-studio](https://aur.archlinux.org/packages/android-studio)
+[google-chrome](https://aur.archlinux.org/packages/google-chrome)
+
+</Card>
+
+To install [Flutter](https://flutter.dev), I found it easiest to
+
+<Steps>
+
+1.  Install the [flutter-bin](https://aur.archlinux.org/packages/flutter-bin) package
+
+2.  Add yourself to the _flutter_ usergroup
+
+    ```sh "<username>"
+    sudo usermod -a -G flutter <username>
+    ```
+
+3.  Disable analytics
+
+    ```sh
+    flutter config --no-analytics
+    ```
+
+4.  Install [Android Studio](https://developer.android.com/),
+    using the [android-studio](https://aur.archlinux.org/packages/android-studio) package, for Android development.
+
+5.  Run `android-studio` to install the SDK to `~/Android/Sdk`
+
+6.  Open the _SDK Manager_, by clicking on _More Actions_ then on _SDK Manager_
+
+7.  Select the tab _SDK Tools_
+
+8.  Install the _Android SDK Command-line Tools (latest)_
+
+9.  Install Google Chrome,
+    using the [google-chrome](https://aur.archlinux.org/packages/google-chrome) package, for Web development.
+
+10. Set the `CHROME_EXECUTABLE` environment variable to `google-chrome-stable`
+
+    <Tabs syncKey="shell">
+
+    <TabItem label="nushell">
+
+    ```nu title="~/.config/nushell/user.nu" ins={1} "google-chrome-stable"
+    $env.CHROME_EXECUTABLE = "google-chrome-stable"
+    ```
+
+    </TabItem>
+
+    <TabItem label="xonsh">
+
+    ```py title="~/.config/xonsh/env.xsh" ins={1} "google-chrome-stable"
+    $CHROME_EXECUTABLE = "google-chrome-stable"
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+11. Make sure Flutter doesn't cry
+
+    ```sh
+    flutter doctor
+    ```
+
+</Steps>
