@@ -76,6 +76,7 @@ export default defineConfig({
 								label: 'GUI',
 								items: [
 									'ref/gui',
+									'ref/gui/term',
 								],
 							},
 							{

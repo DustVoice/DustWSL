@@ -1,0 +1,55 @@
+---
+title: Terminal Emulator
+---
+
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
+
+<CardGrid>
+
+<Card title="Required" icon="puzzle">
+
+[ghostty](https://archlinux.org/packages/extra/x86_64/ghostty/)
+[ttc-iosevka](https://archlinux.org/packages/extra/any/ttc-iosevka/)
+
+</Card>
+
+<Card title="Optional" icon="puzzle">
+
+[ttf-victor-mono-nerd](https://archlinux.org/packages/extra/any/ttf-victor-mono-nerd/)
+[ttf-juliamono-nerd-font](https://aur.archlinux.org/packages/ttf-juliamono-nerd-font)
+[ttf-jetbrains-mono-nerd](https://archlinux.org/packages/extra/any/ttf-jetbrains-mono-nerd/)
+[wezterm](https://archlinux.org/packages/extra/x86_64/wezterm/)
+
+</Card>
+
+</CardGrid>
+
+I currently use [Ghostty](https://ghostty.org) directly from within WSL.
+
+Therefore I also need to install my currently used font package [Iosevka (Term)](https://github.com/be5invis/Iosevka) inside WSL,
+otherwise Ghostty will fallback to its included [JetBrains Mono](https://www.jetbrains.com/lp/mono/) font.
+
+Installing the other mentioned fonts is optional,
+these are just interesting fonts I have tried out for a longer period of time previously.
+
+<Aside>
+
+Previously, I used Wezterm installed on Windows,
+but as I transitioned to use chezmoi for my dotfile management (see the [Dotfiles](/DustWSL/home/dotfiles/) chapter),
+I currently don't have a great workflow for deploying my dotfiles on Windows.
+
+For me, personally, this isn't a problem, as I grew fond of having my complete setup in WSL.
+Managing two systems and keeping ontop of everything is honestly simply too taxing.
+
+If you want to use Wezterm, I would recommend using it from the Windows side,
+utilizing its feature of directly attaching to WSL, instead of using it from within WSL, however.
+I encountered multiple bugs, like the inability to maximize, for example, that made it a PITA to use from _within_ WSL.
+
+</Aside>
