@@ -5,16 +5,36 @@ title: Rust
 import {
   Aside,
   Card,
+  CardGrid,
   Steps,
   Tabs,
   TabItem,
 } from "@astrojs/starlight/components";
+
+<CardGrid>
 
 <Card title="Required" icon="puzzle">
 
 [rustup](https://archlinux.org/packages/extra/x86_64/rustup/)
 
 </Card>
+
+<Card title="Optional" icon="puzzle">
+
+[webkit2gtk-4.1](https://archlinux.org/packages/extra/x86_64/webkit2gtk-4.1/)
+[base-devel](https://archlinux.org/packages/core/any/base-devel/)
+[curl](https://archlinux.org/packages/core/x86_64/curl/)
+[wget](https://archlinux.org/packages/extra/x86_64/wget/)
+[file](https://archlinux.org/packages/core/x86_64/file/)
+[openssl](https://archlinux.org/packages/core/x86_64/openssl/)
+[appmenu-gtk-module](https://archlinux.org/packages/extra/x86_64/appmenu-gtk-module/)
+[libappindicator-gtk3](https://archlinux.org/packages/extra/x86_64/libappindicator-gtk3/)
+[librsvg](https://archlinux.org/packages/extra/x86_64/librsvg/)
+[xdotool](https://archlinux.org/packages/extra/x86_64/xdotool/)
+
+</Card>
+
+</CardGrid>
 
 <Aside type="caution">
 
@@ -64,13 +84,41 @@ in order to be able to install various toolchains, components, etc.
 
     </Tabs>
 
-5.  Restart your shell for the PATH change to take effect
+5.  Install `cargo-binstall` for easier installation of Rust tools, without needing to compile everything
+
+    ```sh
+    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    ```
+
+6.  Restart your shell for the PATH change to take effect
 
 </Steps>
 
 <Aside type="tip">
 
-As I recently seem to be using [Rinf](https://rinf.cunarist.com) (which uses [Flutter](https://flutter.dev) for the GUI part),
+As I recently tried out [Rinf](https://rinf.cunarist.com) (which uses [Flutter](https://flutter.dev) for the GUI part),
 more often than [egui](https://github.com/emilk/egui) (native Rust), I will proceed with the [Dart / Flutter](/DustWSL/ref/lang/dart/) chapter.
 
 </Aside>
+
+## Dioxus
+
+I'm also trying out [Dioxus](https://dioxuslabs.com) for GUI.
+
+To setup the prerequisites, just
+
+<Steps>
+
+1.  Install Dioxus's CLI tool
+
+    ```sh
+    cargo binstall dioxus-cli
+    ```
+
+2.  Install WebView dependencies / make sure they're installed
+
+    ```sh
+    paru -S --needed webkit2gtk-4.1 base-devel curl wget file openssl appmenu-gtk-module libappindicator-gtk3 librsvg xdotool
+    ```
+
+</Steps>
