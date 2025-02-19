@@ -2,16 +2,30 @@
 title: Elixir
 ---
 
-import { Card, Steps } from "@astrojs/starlight/components";
+import { Card, CardGrid, Steps } from "@astrojs/starlight/components";
+
+<CardGrid>
 
 <Card title="Required" icon="puzzle">
 
 [elixir](https://archlinux.org/packages/extra/any/elixir/)
+[erlang-core](https://archlinux.org/packages/extra/x86_64/erlang-core/)
 
 </Card>
 
+<Card title="Optional" icon="puzzle">
+
+[erlang](https://archlinux.org/packages/extra/x86_64/erlang/)
+
+</Card>
+
+</CardGrid>
+
 <Steps>
 
-1.  Install the system package
+1.  Install the [system package for Elixir](https://archlinux.org/packages/extra/any/elixir/).
+
+2.  Install the [Erlang Core](https://archlinux.org/packages/extra/x86_64/erlang-core/).
+    You can instead choose to install the complete [Erlang](https://archlinux.org/packages/extra/x86_64/erlang/) package, which `erlang-core` is a part of.
 
 </Steps>
