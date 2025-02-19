@@ -2,20 +2,30 @@
 title: Elixir
 ---
 
-import { Card, CardGrid, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <CardGrid>
 
 <Card title="Required" icon="puzzle">
 
 [elixir](https://archlinux.org/packages/extra/any/elixir/)
-[erlang-core](https://archlinux.org/packages/extra/x86_64/erlang-core/)
+[erlang](https://archlinux.org/packages/extra/x86_64/erlang/)
 
 </Card>
 
 <Card title="Optional" icon="puzzle">
 
-[erlang](https://archlinux.org/packages/extra/x86_64/erlang/)
+[inotify-tools](https://archlinux.org/packages/extra/x86_64/inotify-tools/)
+[sqlite](https://wiki.archlinux.org/title/SQLite)
+[postgresql](https://wiki.archlinux.org/title/PostgreSQL)
+[erlang-core](https://archlinux.org/packages/extra/x86_64/erlang-core/)
 
 </Card>
 
@@ -25,7 +35,99 @@ import { Card, CardGrid, Steps } from "@astrojs/starlight/components";
 
 1.  Install the [system package for Elixir](https://archlinux.org/packages/extra/any/elixir/).
 
-2.  Install the [Erlang Core](https://archlinux.org/packages/extra/x86_64/erlang-core/).
-    You can instead choose to install the complete [Erlang](https://archlinux.org/packages/extra/x86_64/erlang/) package, which `erlang-core` is a part of.
+2.  Install the [erlang](https://archlinux.org/packages/extra/x86_64/erlang/) package, for the most seamless experience.
+    You can instead choose to install the [Erlang Core](https://archlinux.org/packages/extra/x86_64/erlang-core/) package only
+    and install something like [erlang-asn1](https://archlinux.org/packages/extra/x86_64/erlang-asn1/) when needed.
+
+</Steps>
+
+## Phoenix (LiveView)
+
+<Aside>
+
+Regarding LiveView, as stated on the [project's GitHub page](https://github.com/phoenixframework/phoenix_live_view):
+
+> LiveView ships by default in new Phoenix applications.
+
+This means you can simply setup Phoenix for LiveView capabilities.
+
+</Aside>
+
+<Steps>
+
+1.  Install [inotify-tools](https://archlinux.org/packages/extra/x86_64/inotify-tools/) for _Live Reloading_ to work,
+    as stated in the [Phoenix docs](https://hexdocs.pm/phoenix/installation.html#inotify-tools-for-linux-users).
+
+2.  If you plan on using _PostgreSQL_, install the [postgresql](https://wiki.archlinux.org/title/PostgreSQL) package
+    and consult the [Arch Wiki page](https://wiki.archlinux.org/title/PostgreSQL) for anything specific.
+
+    If you instead want to use _SQLite_, install the [sqlite](https://wiki.archlinux.org/title/SQLite) package
+    and, again, consult the [Arch Wiki page](https://wiki.archlinux.org/title/SQLite) for anything specific.
+
+</Steps>
+
+### New Project
+
+If you're writing a new application
+
+<Steps>
+
+1.  Make sure the [Phoenix application generator](https://phx.new) is installed:
+
+    ```sh
+    mix archive.install hex phx_new
+    ```
+
+2.  Create a new application
+
+    ```sh "<project-name>"
+    mix phx.new <project-name>
+    ```
+
+    or if you prefer SQLite to PostgreSQL, use
+
+    ```sh "<project-name>"
+    mix phx.new <project-name> --database sqlite3
+    ```
+
+3.  Switch to the new directory
+
+    ```sh "<project-name>"
+    cd <project-name>
+    ```
+
+4.  Init your version control
+
+    <Tabs syncKey="vc">
+
+    <TabItem label="git">
+
+    ```sh
+    git init
+    ```
+
+    </TabItem>
+
+    <TabItem label="jujutsu">
+
+    ```sh
+    jj git init
+    ```
+
+    </TabItem>
+
+    </Tabs>
+
+5.  Setup the database
+
+    ```sh
+    mix ecto.create
+    ```
+
+6.  Start the Phoenix server
+
+    ```sh
+    mix phx.server
+    ```
 
 </Steps>
