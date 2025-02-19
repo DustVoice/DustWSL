@@ -1,0 +1,52 @@
+---
+title: OCaml
+---
+
+import { Card, Steps } from "@astrojs/starlight/components";
+
+<Card title="Required" icon="puzzle">
+
+[gcc](https://archlinux.org/packages/core/x86_64/gcc/)
+[base-devel](https://archlinux.org/packages/core/any/base-devel/)
+[curl](https://archlinux.org/packages/core/x86_64/curl/)
+[unzip](https://archlinux.org/packages/extra/x86_64/unzip/)
+[bubblewrap](https://archlinux.org/packages/extra/x86_64/bubblewrap/)
+
+</Card>
+
+<Steps>
+
+1.  Make sure the dependencies are installed, as listed in the package list.
+
+2.  Install `opam`
+
+    ```sh
+    bash -c "sh <(curl -fsSL https://opam.ocaml.org/install.sh)"
+    ```
+
+3.  Init opam
+
+    ```sh
+    opam init
+    ```
+
+4.  When prompted where to put the integration, which defaults to `.bash_profile`,
+    change it to another path and append the contents to your `.bashrc`
+
+    ```bash title="~/.bashrc" ins={1-7} "<username>"
+    # BEGIN opam configuration
+    # This is useful if you're using opam as it adds:
+    #   - the correct directories to the PATH
+    #   - auto-completion for the opam binary
+    # This section can be safely removed at any time if needed.
+    test -r '/home/<username>/.opam/opam-init/init.sh' && . '/home/<username>/.opam/opam-init/init.sh' > /dev/null 2> /dev/null || true
+    # END opam configuration
+    ```
+
+5.  Install the devtools
+
+    ```sh
+    opam install ocaml-lsp-server odoc ocamlformat utop
+    ```
+
+</Steps>
