@@ -92,6 +92,25 @@ For me, the simplest procedure to install the Distro was to
     sudo pacman -Su
     ```
 
+14. Uncomment your specific locale in `/etc/locale.gen`
+
+    ```txt title="/etc/locale.gen" del="#"
+    #en_US.UTF-8 UTF8
+    ```
+
+    and generate the locale(s)
+
+    ```sh
+    sudo locale-gen
+    ```
+
+    <Aside>
+
+    You might have to set the `LANG` environment variable, depending on what some programs expect.
+    For me generating the locale(s) was sufficient
+
+    </Aside>
+
 </Steps>
 
 <Aside type="tip">
