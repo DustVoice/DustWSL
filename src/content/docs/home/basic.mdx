@@ -2,7 +2,14 @@
 title: Basic tools
 ---
 
-import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
+import {
+  Aside,
+  Card,
+  CardGrid,
+  Steps,
+  Tabs,
+  TabItem,
+} from "@astrojs/starlight/components";
 
 <CardGrid>
 <Card title="Required" icon="puzzle">
@@ -21,34 +28,114 @@ import { Aside, Card, CardGrid, Steps } from "@astrojs/starlight/components";
 
 First off, we need to install some basic tools to be able to set up the [dotfiles](./dotter) correctly.
 
-## AUR with `paru`
+## AUR Helper
+
+<Tabs>
+
+<TabItem label="Aura">
+
+<Aside type="caution">
+
+Despite me currently trying out Aura, I might choose to switch back to Paru,
+as I've used Paru for way longer than Aura and am used to the workflow, etc.
+
+As with every AUR-helper, especially the ones being a wrapper around `pacman`,
+be cautious in how you use it and be aware of potential (security) risks associated.
+See the [relevant Arck Wiki section](https://wiki.archlinux.org/title/AUR_helpers#Pacman_wrappers)
+for further information and comparison between helpers.
+
+</Aside>
+
+<Aside title="Why I'm using Aura">
+
+After using [paru](https://github.com/Morganamilo/paru) for quite some time,
+I got a bit annoyed with the defaults, e.g. updating both regular Pacman packages, as well as AUR packages.
+Some of my development related AUR packages take a long time to upgrade and don't really need to be updated that frequently.
+
+I know that this can be changed through command line flags, for example, but it got me thinking.
+
+In the end I figured that despite the undeniable convenience,
+you should indeed **conciously** install AUR packages, instead of treating them like regular ones.
+The same with updating them.
+
+After reviewing the [wiki page for AUR helpers](https://wiki.archlinux.org/title/AUR_helpers) again,
+I stumbled upon Aura, which seperates regular `pacman` operations from AUR ones,
+where you use the `-S` options for Pacman and the `-A` ones for AUR.
+
+</Aside>
 
 <Steps>
 
-1. First install `git`, so we can grab an [AUR](https://aur.archlinux.org) helper named [`paru`](https://github.com/morganamilo/paru).
+1.  First install `git`, so we can grab the [AUR](https://aur.archlinux.org) helper named [`aura`](https://github.com/fosskers/aura).
 
-   ```sh
-   sudo pacman -S git
-   ```
+    ```sh
+    sudo pacman -S git
+    ```
 
-2. In order for us to install this package in a second, we also need the `base-devel` package group
+2.  In order for us to install this package in a second, we also need the `base-devel` package group
 
-   ```sh
-   sudo pacman -S base-devel
-   ```
+    ```sh
+    sudo pacman -S base-devel
+    ```
 
-3. Now clone the repository `paru-bin` from _AUR_ (this way we don't need to compile it),
-   as well as build and install it.
+3.  Now clone the repository `aura-bin` from _AUR_ (this way we don't need to compile it),
+    as well as build and install it.
 
-   ```sh
-   git clone https://aur.archlinux.org/paru-bin.git
-   cd paru-bin
-   makepkg -si
-   ```
+    ```sh
+    git clone https://aur.archlinux.org/aura-bin.git
+    cd aura-bin
+    makepkg -si
+    ```
 
-4. You can now remove the `~/paru-bin` directory, as `paru` is able to manage/update itself.
+4.  You can now remove the `~/aura-bin` directory, as `aura` is able to manage/update itself.
 
-5. From now on we can simply substitute `pacman` with `paru`.
+5.  From now on we can simply substitute `pacman` with `aura`.
+
+6.  If we want to do AUR-specific tasks, we substitute `-S` with `-A`.
+
+7.  There are several advanced features, like downgrading packages, using snapshots, etc.
+    For that, kindly refer to the official [Aura User Guide](https://fosskers.github.io/aura/introduction.html).
+
+</Steps>
+
+<Aside type="danger">
+
+[`arua` is **not** supposed to be run with **root** privileges](https://fosskers.github.io/aura/pacman.html?highlight=sudo#install-an-official-package).
+You shouldn't use `sudo aura`!
+Aura will invoke a `sudo` prompt on its own!
+
+</Aside>
+
+</TabItem>
+
+<TabItem label="Paru">
+
+<Steps>
+
+1.  First install `git`, so we can grab [AUR](https://aur.archlinux.org) helper named [`paru`](https://github.com/morganamilo/paru).
+
+    ```sh
+    sudo pacman -S git
+    ```
+
+2.  In order for us to install this package in a second, we also need the `base-devel` package group
+
+    ```sh
+    sudo pacman -S base-devel
+    ```
+
+3.  Now clone the repository `paru-bin` from _AUR_ (this way we don't need to compile it),
+    as well as build and install it.
+
+    ```sh
+    git clone https://aur.archlinux.org/paru-bin.git
+    cd paru-bin
+    makepkg -si
+    ```
+
+4.  You can now remove the `~/paru-bin` directory, as `paru` is able to manage/update itself.
+
+5.  From now on we can simply substitute `pacman` with `paru`.
 
 </Steps>
 
@@ -74,6 +161,10 @@ as both _normal_ and _AUR_ packages are easily installable with `paru`.
 Please refer to the package list at the top of a chapter for any packages used in it.
 
 </Aside>
+
+</TabItem>
+
+</Tabs>
 
 ## SSH
 
