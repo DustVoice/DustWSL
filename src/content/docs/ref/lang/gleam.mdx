@@ -4,13 +4,21 @@ title: Gleam
 
 import { Card, Steps } from "@astrojs/starlight/components";
 
-<Card title="Required" icon="puzzle">
+<CardGrid>
 
-#### AUR
+<Card title="Required" icon="puzzle" />
+
+<Card title="Optional" icon="puzzle" />
+
+<Card title="Required" icon="external">
 
 [gleam-bin](https://aur.archlinux.org/packages/gleam-bin)
 
 </Card>
+
+<Card title="Optional" icon="external" />
+
+</CardGrid>
 
 <Steps>
 

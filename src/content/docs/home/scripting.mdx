@@ -4,18 +4,28 @@ title: Scripting
 
 import { Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
 
+<CardGrid>
+
 <Card title="Required" icon="puzzle">
 
 [nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
 [julia](https://archlinux.org/packages/extra/x86_64/julia/)
 [python](https://archlinux.org/packages/core/x86_64/python/)
 
-#### AUR
+</Card>
+
+<Card title="Optional" icon="puzzle" />
+
+<Card title="Required" icon="external">
 
 [babashka-bin](https://aur.archlinux.org/packages/babashka-bin)
 [janet-lang-bin](https://aur.archlinux.org/packages/janet-lang-bin)
 
 </Card>
+
+<Card title="Optional" icon="external" />
+
+</CardGrid>
 
 Although _nushell_ provides us with some good scripting ability, as many shells do,
 I sometimes feel myself drawn to some other languages for my scripting needs.

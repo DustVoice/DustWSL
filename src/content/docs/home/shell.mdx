@@ -14,6 +14,7 @@ import {
 } from "@astrojs/starlight/components";
 
 <CardGrid>
+
 <Card title="Required" icon="puzzle">
 
 [nushell](https://archlinux.org/packages/extra/x86_64/nushell/)
@@ -21,11 +22,8 @@ import {
 [starship](https://archlinux.org/packages/extra/x86_64/starship/)
 [zoxide](https://archlinux.org/packages/extra/x86_64/zoxide/)
 
-#### AUR
-
-[carapace-bin](https://aur.archlinux.org/packages/carapace-bin)
-
 </Card>
+
 <Card title="Optional" icon="puzzle">
 
 [zellij](https://archlinux.org/packages/extra/x86_64/zellij/)
@@ -37,6 +35,15 @@ import {
 [python-setproctitle](https://archlinux.org/packages/extra/x86_64/python-setproctitle/)
 
 </Card>
+
+<Card title="Required" icon="external">
+
+[carapace-bin](https://aur.archlinux.org/packages/carapace-bin)
+
+</Card>
+
+<Card title="Optional" icon="external" />
+
 </CardGrid>
 
 Before we proceed further, I will quickly install my shell next, so I don't go insane from using `bash`.

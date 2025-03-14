@@ -11,6 +11,7 @@ import {
 } from "@astrojs/starlight/components";
 
 <CardGrid>
+
 <Card title="Required" icon="puzzle">
 
 [neovim](https://archlinux.org/packages/extra/x86_64/neovim/)
@@ -25,6 +26,7 @@ import {
 [npm](https://archlinux.org/packages/extra/x86_64/npm/)
 
 </Card>
+
 <Card title="Optional" icon="puzzle">
 
 [wl-clipboard](https://archlinux.org/packages/extra/x86_64/wl-clipboard/)
@@ -36,6 +38,11 @@ import {
 [lazyjj](https://archlinux.org/packages/extra/x86_64/lazyjj/)
 
 </Card>
+
+<Card title="Required" icon="external" />
+
+<Card title="Optional" icon="external" />
+
 </CardGrid>
 
 For easy file editing, I'm going to use [`neovim`](https://neovim.io), so editing is as simple as calling `nvim` on the file.
@@ -112,6 +119,7 @@ having no "native" solution installed, but rather win32yank on the Windows side,
 </Aside>
 
 <CardGrid>
+
 <Card title="Clipboard via Windows">
 
 Simply install [win32yank](https://github.com/equalsraf/win32yank) on the Windows side.
@@ -124,6 +132,7 @@ scoop.exe install win32yank
 ```
 
 </Card>
+
 <Card title="Native clipboard">
 
 Install both [wl-clipboard](https://github.com/bugaevc/wl-clipboard),
@@ -132,6 +141,7 @@ I use Wayland primarily, but it doesn't hurt to have both available,
 as Neovim checks for wl-clipboard first anyway (see `:help clipboard`).
 
 </Card>
+
 </CardGrid>
 
 <Aside type="caution">
