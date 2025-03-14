@@ -2,7 +2,9 @@
 title: OCaml
 ---
 
-import { Card, Steps } from "@astrojs/starlight/components";
+import { Card, CardGrid, Steps } from "@astrojs/starlight/components";
+
+<CardGrid>
 
 <Card title="Required" icon="puzzle">
 
@@ -13,6 +15,14 @@ import { Card, Steps } from "@astrojs/starlight/components";
 [bubblewrap](https://archlinux.org/packages/extra/x86_64/bubblewrap/)
 
 </Card>
+
+<Card title="Optional" icon="puzzle" />
+
+<Card title="Required" icon="external" />
+
+<Card title="Optional" icon="external" />
+
+<CardGrid>
 
 <Steps>
 
