@@ -93,15 +93,6 @@ you can use the `--sudoloop` option to keep `sudo` from timeouting.
 
 </Aside>
 
-<Aside type="caution">
-
-From now on, I will cease to specify _trivial_ install instructions for packages,
-as both _normal_ and _AUR_ packages are easily installable with `paru`.
-
-Please refer to the package list at the top of a chapter for any packages used in it.
-
-</Aside>
-
 </TabItem>
 
 <TabItem label="Aura">
@@ -184,6 +175,16 @@ Aura will invoke a `sudo` prompt on its own!
 
 </Tabs>
 
+<Aside type="caution">
+
+From now on, I will cease to specify _trivial_ install instructions for packages,
+as both _normal_ and _AUR_ packages are easily installable with `paru` or `aura`.
+
+Please refer to the package list at the top of a chapter for any packages used in it.
+For instructions on how to read the package list, see the [Syntax](/DustWSL/intro/syntax/) chapter from the Introduction section.
+
+</Aside>
+
 ## SSH
 
 In order to switch to `ssh` URLs later in this document (e.g. for my dotfiles repo),
@@ -191,7 +192,7 @@ we of course need to install it with the [`openssh`](https://archlinux.org/packa
 
 <Aside type="caution">
 
-If you had to setup the `http_proxy` environment variable in the [ArchWSL](../pre/archwsl) chapter,
+If you had to setup the `http_proxy` environment variable in the [ArchWSL](../pre/archwsl/) chapter,
 you need have `nc` (the OpenBSD netcat variant!) installed, in order to use `ssh` after setting up the dotfiles.
 This is because `ssh` doesn't natively handle proxies, you need a `ProxyCommand` for that and I found netcat to be easy to setup.
 
