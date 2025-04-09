@@ -11,9 +11,9 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: "DustWSL",
-			social: {
-				github: 'https://github.com/DustVoice/DustWSL',
-			},
+			social: [
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/DustVoice/DustWSL' },
+			],
 			plugins: [
 				catppuccin({ dark: 'macchiato-mauve', light: "latte-mauve" }),
 				starlightSidebarTopics([
@@ -100,8 +100,8 @@ export default defineConfig({
 				themes: ['catppuccin-macchiato', 'catppuccin-latte'],
 				plugins: [pluginCollapsibleSections(), pluginLineNumbers()],
 				defaultProps: {
-					// Disable line numbers by default
 					showLineNumbers: false,
+					collapseStyle: 'collapsible-auto',
 				},
 			},
 		}),
