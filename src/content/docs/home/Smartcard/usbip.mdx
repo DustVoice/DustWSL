@@ -89,3 +89,32 @@ You can easily check if this worked by observing the `usbipd.exe` command output
 or by utilizing `lsusb` from the [`usbutils`](https://archlinux.org/packages/core/x86_64/usbutils/) package.
 
 </Aside>
+
+## FIDO2
+
+Despite all this, some utilities, for example `ssh-keygen`,
+utilize a direct smartcard access using e.g. the `/dev/hidraw` devices the USB/IP setup produces.
+
+For that to work, you simply need to add an `udev` rule
+
+```text title="/etc/udev/rules.d/99-yubikey.rules" "1050" "0406" ins={1}
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0660", TAG+="uaccess", GROUP="plugdev", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0406"
+```
+
+You might need to change the vendor and/or product ID.
+You can easily check the IDs using the
+
+```sh
+lsusb
+```
+
+command.
+
+Simply locate the Yubikey line in the output, and locate the IDs following the pattern: `[Bus IDs]: ID <vendor>:<product> [Name of the device]`
+
+After that add your user to the `plugdev` group, restart WSL and you should be good to go.
+
+```sh "<username>"
+sudo groupadd plugdev
+sudo usermod -aG plugdev <username>
+```
